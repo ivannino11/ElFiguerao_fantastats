@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>El Figuerao - FantaStats & Rimpianti Panchina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #0a0d14;
+      --bg-surface: #121722;
+      --bg-card: #181f2f;
+      --bg-card-hover: #1f273b;
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --accent-gold: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-green: #10b981;
+      --accent-cyan: #06b6d4;
+      --accent-purple: #a855f7;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #222d42;
+      --border-glow: rgba(99, 102, 241, 0.25);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.45);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at top center, #171d2f 0%, #0a0d14 100%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      line-height: 1.5;
+      padding-bottom: 60px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* HEADER */
+    header {
+      padding: 30px 0 20px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 13, 20, 0.88);
+      backdrop-filter: blur(16px);
+      z-index: 100;
+    }
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .logo-area h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #fff 30%, var(--primary-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tagline {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-green);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-status::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-green);
+    }
+
+    .btn-share {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+      transition: all 0.25s ease;
+    }
+    .btn-share:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+    }
+
+    /* TABS NAV */
+    .tabs-nav {
+      display: flex;
+      gap: 10px;
+      margin: 25px 0;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .tab-btn.active {
+      color: #fff;
+      background: var(--primary);
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+    }
+
+    /* TAB PANELS */
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HERO STATS CARDS */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      margin-bottom: 25px;
+    }
+    .hero-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: var(--primary);
+    }
+    .hero-card.gold::after { background: var(--accent-gold); }
+    .hero-card.red::after { background: var(--accent-red); }
+    .hero-card.green::after { background: var(--accent-green); }
+    .hero-card.purple::after { background: var(--accent-purple); }
+
+    .hero-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .hero-val {
+      font-size: 1.8rem;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      margin-top: 6px;
+      color: #fff;
+    }
+    .hero-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* TABLES */
+    .table-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      margin-bottom: 30px;
+    }
+    .table-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.015);
+    }
+    .table-header h2 {
+      font-size: 1.15rem;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+    th {
+      background: rgba(10, 13, 20, 0.6);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+    tbody tr:hover {
+      background: var(--bg-card-hover);
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .rank-cell {
+      font-weight: 800;
+      font-size: 1rem;
+      width: 45px;
+      color: var(--text-muted);
+    }
+    .rank-1 { color: #fbbf24; font-size: 1.3rem; }
+    .rank-2 { color: #94a3b8; font-size: 1.15rem; }
+    .rank-3 { color: #b45309; font-size: 1.05rem; }
+
+    .team-cell {
+      font-weight: 700;
+      color: #fff;
+    }
+    .coach-name {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .stat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.88rem;
+    }
+    .badge-gol {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .badge-assist {
+      background: rgba(6, 182, 212, 0.15);
+      color: #22d3ee;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+    .badge-fv {
+      background: rgba(99, 102, 241, 0.15);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+    }
+    .badge-card {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .diff-plus {
+      color: var(--accent-green);
+      font-weight: 800;
+    }
+    .diff-minus {
+      color: var(--accent-red);
+      font-weight: 800;
+    }
+    .diff-zero {
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* RUOLI BADGES */
+    .badge-role {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      margin-right: 6px;
+    }
+    .badge-p { background: #eab308; color: #000; }
+    .badge-d { background: #10b981; color: #000; }
+    .badge-c { background: #3b82f6; color: #fff; }
+    .badge-a { background: #ef4444; color: #fff; }
+
+    /* CARDS ROUNDS */
+    .round-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .round-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: inherit;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .round-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .regrets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .regret-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .regret-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary-light);
+    }
+    .regret-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .regret-player-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .regret-team {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    .regret-fv-box {
+      text-align: right;
+    }
+    .regret-fv-val {
+      font-size: 1.45rem;
+      font-weight: 800;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #a5b4fc;
+    }
+    .regret-voto-puro {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .regret-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    /* TEAM CARDS FOR TOP PLAYERS */
+    .teams-top-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .team-top-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .team-top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+    }
+    .team-top-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+    }
+    .team-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.88rem;
+      padding: 6px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+    }
+    .team-top-row:last-child {
+      border-bottom: none;
+    }
+    .top-category {
+      color: var(--text-muted);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .top-player-val {
+      font-weight: 700;
+      color: #fff;
+      text-align: right;
+    }
+
+    /* LEADERBOARD 3 COLS */
+    .leader-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #10b981;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 1000;
+    }
+
+    @media (max-width: 768px) {
+      .header-content { flex-direction: column; align-items: flex-start; }
+      th, td { padding: 12px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container header-content">
+      <div class="logo-area">
+        <h1>⚽ El Figuerao <span>Stats</span></h1>
+        <div class="tagline">Lega Fantacalcio (ID: 619614) • Analisi Statistiche, What-If & Top Players</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <span class="badge-status">Giornata 2 Calcolata</span>
+        <button class="btn-share" onclick="condividiWhatsApp()">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Condividi Report WhatsApp
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO CARDS -->
+    <div class="hero-grid" style="margin-top: 25px;">
+      <div class="hero-card red">
+        <div class="hero-label">Re dei Rimpianti ⚽</div>
+        <div class="hero-val" id="top-team-regret">-</div>
+        <div class="hero-sub" id="top-team-regret-sub">-</div>
+      </div>
+      <div class="hero-card purple">
+        <div class="hero-label">Punti Rubati alla Sorte 🔮</div>
+        <div class="hero-val" id="top-whatif-lucky">-</div>
+        <div class="hero-sub" id="top-whatif-lucky-sub">-</div>
+      </div>
+      <div class="hero-card gold">
+        <div class="hero-label">Più Penalizzato dalla Panchina 💥</div>
+        <div class="hero-val" id="top-whatif-unlucky">-</div>
+        <div class="hero-sub" id="top-whatif-unlucky-sub">-</div>
+      </div>
+      <div class="hero-card green">
+        <div class="hero-label">Top Bonus Singolo in Panchina</div>
+        <div class="hero-val" id="top-single-bonus">-</div>
+        <div class="hero-sub" id="top-single-bonus-sub">-</div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="switchTab('tab-whatif')">🔮 Classifica What-If</button>
+      <button class="tab-btn" onclick="switchTab('tab-rimpianti')">🏆 Rimpianti Panchina</button>
+      <button class="tab-btn" onclick="switchTab('tab-topplayers')">🌟 Top Player per Squadra</button>
+      <button class="tab-btn" onclick="switchTab('tab-leaderboards')">🥇 Leaderboard Assoluta</button>
+      <button class="tab-btn" onclick="switchTab('tab-giornate')">📅 Dettaglio Turni</button>
+      <button class="tab-btn" onclick="switchTab('tab-moduli')">📐 Moduli Tattici</button>
+      <button class="tab-btn" onclick="switchTab('tab-rose')">💼 Rose & Budget</button>
+    </div>
+
+    <!-- TAB 1: CLASSIFICA WHAT-IF -->
+    <div id="tab-whatif" class="tab-pane active">
+      <div class="table-card">
+        <div class="table-header">
+          <div>
+            <h2>Classifica Reale vs Classifica "What-If" (Senza Rimpianti)</h2>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Cosa sarebbe successo se ogni squadra avesse schierato la sua formazione ottimale?</span>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 50px;">Pos</th>
+              <th>Fantasquadra</th>
+              <th>Pt Reali</th>
+              <th>Pt What-If</th>
+              <th>Differenza</th>
+              <th>FantaTot Reale</th>
+              <th>FantaTot What-If</th>
+              <th>Gol Reali vs What-If</th>
+              <th>Esito Sorte</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-whatif"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 2: CLASSIFICA RIMPIANTI -->
+    <div id="tab-rimpianti" class="tab-pane">
+      <div class="table-card">
+        <div class="table-header">
+          <h2>Classifica Generale Bonus Sprecati in Panchina</h2>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Calciatori con Gol, Assist o Fantavoto &ge; 7.0 rimasti fuori</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 50px;">Pos</th>
+              <th>Fantasquadra</th>
+              <th>Gol in Panchina ⚽</th>
+              <th>Assist in Panchina 👟</th>
+              <th>Totale Rimpianti</th>
+              <th>FantaMedia Panchina</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-classifica-rimpianti"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 3: TOP PLAYER PER SQUADRA -->
+    <div id="tab-topplayers" class="tab-pane">
+      <div style="margin-bottom: 20px;">
+        <h2>🌟 I Protagonisti di Ciascuna Rosa</h2>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 4px;">MVP, Capocannoniere, Assistman, Mister Cartellino e Miglior Affare interno per squadra.</p>
+      </div>
+      <div class="teams-top-grid" id="teams-top-container"></div>
+    </div>
+
+    <!-- TAB 4: LEADERBOARD ASSOLUTA -->
+    <div id="tab-leaderboards" class="tab-pane">
+      <div class="leader-grid">
+        <!-- Marcatori -->
+        <div class="table-card">
+          <div class="table-header">
+            <h2>⚽ Classifica Marcatori</h2>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Giocatore</th>
+                <th>Squadra Fanta</th>
+                <th style="text-align: right;">Gol</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-top-marcatori"></tbody>
+          </table>
+        </div>
+
+        <!-- Assist -->
+        <div class="table-card">
+          <div class="table-header">
+            <h2>👟 Classifica Assist</h2>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Giocatore</th>
+                <th>Squadra Fanta</th>
+                <th style="text-align: right;">Assist</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-top-assist"></tbody>
+          </table>
+        </div>
+
+        <!-- Cartellini -->
+        <div class="table-card">
+          <div class="table-header">
+            <h2>🟨 Mister Cartellino (Cattivi)</h2>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Giocatore</th>
+                <th>Squadra Fanta</th>
+                <th style="text-align: right;">🟨 / 🟥</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-top-cattivi"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: DETTAGLIO GIORNATE -->
+    <div id="tab-giornate" class="tab-pane">
+      <div class="round-selector" id="round-buttons"></div>
+      <div class="regrets-grid" id="regrets-container"></div>
+    </div>
+
+    <!-- TAB 6: MODULI TATTICI -->
+    <div id="tab-moduli" class="tab-pane">
+      <div class="table-card">
+        <div class="table-header">
+          <h2>Rendimento per Modulo Schierato</h2>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Quale modulo porta più punti alla lunga?</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Modulo</th>
+              <th>Volte Schierato</th>
+              <th>Media Punti Fantasquadra</th>
+              <th>Vittorie</th>
+              <th>Pareggi</th>
+              <th>Sconfitte</th>
+              <th>Win Rate</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-moduli"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TAB 7: ROSE & BUDGET -->
+    <div id="tab-rose" class="tab-pane">
+      <div class="table-card">
+        <div class="table-header">
+          <h2>Situazione Finanziaria e Top Spese Rose</h2>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">Crediti spesi e residui (Budget 500)</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Squadra</th>
+              <th>Allenatore</th>
+              <th>Crediti Spesi</th>
+              <th>Crediti Residui</th>
+              <th>Top Player Acquistato</th>
+              <th>Costo Top Player</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-rose"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <div id="toast" class="toast">Testo copiato negli appunti! Incollalo su WhatsApp 🚀</div>
+
+  <script>
+    const data = {"classifica_rimpianti": [{"squadra": "FC La Carlona", "allenatore": "Gennaro Rappuso", "gol_panchina": 5, "assist_panchina": 1, "totale_rimpianti": 5, "fantavoto_medio_panchina": 10.2}, {"squadra": "Pajax", "allenatore": "Pedencio", "gol_panchina": 4, "assist_panchina": 0, "totale_rimpianti": 3, "fantavoto_medio_panchina": 11.33}, {"squadra": "Mapi Group Srl", "allenatore": "Giampietro Manenti", "gol_panchina": 3, "assist_panchina": 2, "totale_rimpianti": 5, "fantavoto_medio_panchina": 8.9}, {"squadra": "Samba Moranda", "allenatore": "Sambino", "gol_panchina": 3, "assist_panchina": 0, "totale_rimpianti": 3, "fantavoto_medio_panchina": 10.33}, {"squadra": "culorotondo", "allenatore": "falso2", "gol_panchina": 1, "assist_panchina": 1, "totale_rimpianti": 2, "fantavoto_medio_panchina": 8.5}, {"squadra": "PuffamiTutto", "allenatore": "Puffetta", "gol_panchina": 1, "assist_panchina": 1, "totale_rimpianti": 2, "fantavoto_medio_panchina": 8.25}, {"squadra": "Benfiga FC", "allenatore": "Dicken Cool", "gol_panchina": 1, "assist_panchina": 0, "totale_rimpianti": 1, "fantavoto_medio_panchina": 11.0}, {"squadra": "Barco FC", "allenatore": "Giambalaya", "gol_panchina": 1, "assist_panchina": 0, "totale_rimpianti": 1, "fantavoto_medio_panchina": 9.5}, {"squadra": "Francesco", "allenatore": "Francesco", "gol_panchina": 1, "assist_panchina": 0, "totale_rimpianti": 1, "fantavoto_medio_panchina": 9.5}, {"squadra": "LosingEleven", "allenatore": "JosePurinho", "gol_panchina": 0, "assist_panchina": 2, "totale_rimpianti": 2, "fantavoto_medio_panchina": 7.25}], "classifica_whatif": [{"squadra": "FC La Carlona", "allenatore": "Gennaro Rappuso", "punti_reali": 2, "punti_whatif": 6, "diff_punti": 4, "fanta_tot_reale": 146.0, "fanta_tot_whatif": 169.5, "gol_fatti_reali": 4, "gol_fatti_whatif": 7, "saldo_gol": 3, "stato_fortuna": "Sfortunato 💥"}, {"squadra": "Mapi Group Srl", "allenatore": "Giampietro Manenti", "punti_reali": 3, "punti_whatif": 6, "diff_punti": 3, "fanta_tot_reale": 151.5, "fanta_tot_whatif": 169.0, "gol_fatti_reali": 5, "gol_fatti_whatif": 8, "saldo_gol": 3, "stato_fortuna": "Sfortunato 💥"}, {"squadra": "Samba Moranda", "allenatore": "Sambino", "punti_reali": 4, "punti_whatif": 3, "diff_punti": -1, "fanta_tot_reale": 147.0, "fanta_tot_whatif": 163.5, "gol_fatti_reali": 5, "gol_fatti_whatif": 6, "saldo_gol": 1, "stato_fortuna": "Fortunato 🍀"}, {"squadra": "Pajax", "allenatore": "Pedencio", "punti_reali": 4, "punti_whatif": 3, "diff_punti": -1, "fanta_tot_reale": 151.0, "fanta_tot_whatif": 162.0, "gol_fatti_reali": 5, "gol_fatti_whatif": 6, "saldo_gol": 1, "stato_fortuna": "Fortunato 🍀"}, {"squadra": "culorotondo", "allenatore": "falso2", "punti_reali": 3, "punti_whatif": 3, "diff_punti": 0, "fanta_tot_reale": 153.0, "fanta_tot_whatif": 161.0, "gol_fatti_reali": 6, "gol_fatti_whatif": 6, "saldo_gol": 0, "stato_fortuna": "In Parità ⚖️"}, {"squadra": "Barco FC", "allenatore": "Giambalaya", "punti_reali": 4, "punti_whatif": 3, "diff_punti": -1, "fanta_tot_reale": 143.0, "fanta_tot_whatif": 149.0, "gol_fatti_reali": 4, "gol_fatti_whatif": 4, "saldo_gol": 0, "stato_fortuna": "Fortunato 🍀"}, {"squadra": "Benfiga FC", "allenatore": "Dicken Cool", "punti_reali": 1, "punti_whatif": 3, "diff_punti": 2, "fanta_tot_reale": 137.5, "fanta_tot_whatif": 144.0, "gol_fatti_reali": 3, "gol_fatti_whatif": 4, "saldo_gol": 1, "stato_fortuna": "Sfortunato 💥"}, {"squadra": "PuffamiTutto", "allenatore": "Puffetta", "punti_reali": 4, "punti_whatif": 1, "diff_punti": -3, "fanta_tot_reale": 143.5, "fanta_tot_whatif": 155.5, "gol_fatti_reali": 4, "gol_fatti_whatif": 5, "saldo_gol": 1, "stato_fortuna": "Fortunato 🍀"}, {"squadra": "Francesco", "allenatore": "Francesco", "punti_reali": 1, "punti_whatif": 1, "diff_punti": 0, "fanta_tot_reale": 142.0, "fanta_tot_whatif": 149.0, "gol_fatti_reali": 3, "gol_fatti_whatif": 4, "saldo_gol": 1, "stato_fortuna": "In Parità ⚖️"}, {"squadra": "LosingEleven", "allenatore": "JosePurinho", "punti_reali": 0, "punti_whatif": 0, "diff_punti": 0, "fanta_tot_reale": 129.0, "fanta_tot_whatif": 133.5, "gol_fatti_reali": 0, "gol_fatti_whatif": 2, "saldo_gol": 2, "stato_fortuna": "In Parità ⚖️"}], "team_top_players": [{"squadra": "FC La Carlona", "allenatore": "Gennaro Rappuso", "mvp": {"pid": 4871, "nome": "Thuram", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "INT", "gol": 1, "assist": 2, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 9.5, "media_voto": 7.0, "presenze": 2, "costo": 155}, "bomber": {"pid": 7472, "nome": "Calò", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FRO", "gol": 1, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 8.75, "media_voto": 6.75, "presenze": 2, "costo": 1}, "assistman": {"pid": 4871, "nome": "Thuram", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "INT", "gol": 1, "assist": 2, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 9.5, "media_voto": 7.0, "presenze": 2, "costo": 155}, "badboy": {"pid": 6904, "nome": "Yeboah J.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "VEN", "gol": 0, "assist": 0, "amm": 0, "esp": 1, "clean_sheet": 0, "fantamedia": 3.5, "media_voto": 5.0, "presenze": 2, "costo": 10}, "affare": {"pid": 7472, "nome": "Calò", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FRO", "gol": 1, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 8.75, "media_voto": 6.75, "presenze": 2, "costo": 1}}, {"squadra": "Benfiga FC", "allenatore": "Dicken Cool", "mvp": {"pid": 4896, "nome": "Maldini", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "CAG", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 11.0, "media_voto": 7.0, "presenze": 2, "costo": 15}, "bomber": {"pid": 4896, "nome": "Maldini", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "CAG", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 11.0, "media_voto": 7.0, "presenze": 2, "costo": 15}, "assistman": null, "badboy": null, "affare": {"pid": 6893, "nome": "Kempf", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "COM", "gol": 0, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 6.0, "media_voto": 6.0, "presenze": 1, "costo": 1}}, {"squadra": "Pajax", "allenatore": "Pedencio", "mvp": {"pid": 7071, "nome": "Esposito F.P.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "INT", "gol": 1, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 11.0, "media_voto": 7.0, "presenze": 1, "costo": 66}, "bomber": {"pid": 7554, "nome": "Romero D.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "PAR", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 10.0, "media_voto": 7.0, "presenze": 2, "costo": 1}, "assistman": null, "badboy": {"pid": 7523, "nome": "Varela G.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "MON", "gol": 2, "assist": 0, "amm": 1, "esp": 0, "clean_sheet": 0, "fantamedia": 10.0, "media_voto": 6.75, "presenze": 2, "costo": 2}, "affare": {"pid": 7554, "nome": "Romero D.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "PAR", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 10.0, "media_voto": 7.0, "presenze": 2, "costo": 1}}, {"squadra": "LosingEleven", "allenatore": "JosePurinho", "mvp": {"pid": 5620, "nome": "Tavares N.", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "LAZ", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 6.75, "media_voto": 6.25, "presenze": 2, "costo": 14}, "bomber": null, "assistman": {"pid": 6783, "nome": "Unai Gomez", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "UDI", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 6.0, "media_voto": 5.5, "presenze": 2, "costo": 1}, "badboy": {"pid": 6664, "nome": "Delprato", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "PAR", "gol": 0, "assist": 0, "amm": 1, "esp": 0, "clean_sheet": 0, "fantamedia": 5.75, "media_voto": 6.0, "presenze": 2, "costo": 5}, "affare": {"pid": 4657, "nome": "Celik", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "JUV", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 6.5, "media_voto": 6.0, "presenze": 2, "costo": 4}}, {"squadra": "Barco FC", "allenatore": "Giambalaya", "mvp": {"pid": 7374, "nome": "Mendy P.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "CAG", "gol": 1, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 8.25, "media_voto": 6.75, "presenze": 2, "costo": 1}, "bomber": {"pid": 7374, "nome": "Mendy P.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "CAG", "gol": 1, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 8.25, "media_voto": 6.75, "presenze": 2, "costo": 1}, "assistman": {"pid": 4465, "nome": "Fagioli", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FIO", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 7.0, "media_voto": 6.5, "presenze": 2, "costo": 1}, "badboy": {"pid": 4807, "nome": "Hermoso", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ROM", "gol": 0, "assist": 0, "amm": 1, "esp": 0, "clean_sheet": 0, "fantamedia": 5.5, "media_voto": 5.75, "presenze": 2, "costo": 14}, "affare": {"pid": 7374, "nome": "Mendy P.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "CAG", "gol": 1, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 8.25, "media_voto": 6.75, "presenze": 2, "costo": 1}}, {"squadra": "Samba Moranda", "allenatore": "Sambino", "mvp": {"pid": 6372, "nome": "Moreira", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "MIL", "gol": 3, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 12.0, "media_voto": 7.5, "presenze": 2, "costo": 14}, "bomber": {"pid": 6372, "nome": "Moreira", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "MIL", "gol": 3, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 12.0, "media_voto": 7.5, "presenze": 2, "costo": 14}, "assistman": {"pid": 6397, "nome": "Ramos G.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "MIL", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 6.75, "media_voto": 6.25, "presenze": 2, "costo": 150}, "badboy": {"pid": 6827, "nome": "Njie", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FIO", "gol": 0, "assist": 0, "amm": 1, "esp": 0, "clean_sheet": 0, "fantamedia": 6.0, "media_voto": 6.25, "presenze": 2, "costo": 6}, "affare": {"pid": 7347, "nome": "Bowie", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "SAS", "gol": 1, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 8.0, "media_voto": 6.5, "presenze": 2, "costo": 1}}, {"squadra": "culorotondo", "allenatore": "falso2", "mvp": {"pid": 5589, "nome": "Konè M.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ROM", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 10.0, "media_voto": 7.0, "presenze": 2, "costo": 7}, "bomber": {"pid": 5589, "nome": "Konè M.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ROM", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 10.0, "media_voto": 7.0, "presenze": 2, "costo": 7}, "assistman": {"pid": 5838, "nome": "Birindelli", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "MON", "gol": 0, "assist": 1, "amm": 1, "esp": 0, "clean_sheet": 0, "fantamedia": 7.0, "media_voto": 6.25, "presenze": 2, "costo": 1}, "badboy": {"pid": 5838, "nome": "Birindelli", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "MON", "gol": 0, "assist": 1, "amm": 1, "esp": 0, "clean_sheet": 0, "fantamedia": 7.0, "media_voto": 6.25, "presenze": 2, "costo": 1}, "affare": {"pid": 5589, "nome": "Konè M.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ROM", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 10.0, "media_voto": 7.0, "presenze": 2, "costo": 7}}, {"squadra": "Mapi Group Srl", "allenatore": "Giampietro Manenti", "mvp": {"pid": 7078, "nome": "Mastantuono", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FIO", "gol": 3, "assist": 0, "amm": 1, "esp": 0, "clean_sheet": 0, "fantamedia": 11.5, "media_voto": 7.25, "presenze": 2, "costo": 40}, "bomber": {"pid": 7078, "nome": "Mastantuono", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FIO", "gol": 3, "assist": 0, "amm": 1, "esp": 0, "clean_sheet": 0, "fantamedia": 11.5, "media_voto": 7.25, "presenze": 2, "costo": 40}, "assistman": {"pid": 6229, "nome": "Tourè E.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "PAR", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 6.5, "media_voto": 6.0, "presenze": 2, "costo": 1}, "badboy": {"pid": 7078, "nome": "Mastantuono", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FIO", "gol": 3, "assist": 0, "amm": 1, "esp": 0, "clean_sheet": 0, "fantamedia": 11.5, "media_voto": 7.25, "presenze": 2, "costo": 40}, "affare": {"pid": 7349, "nome": "Kulenovic", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "TOR", "gol": 1, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 10.0, "media_voto": 7.0, "presenze": 1, "costo": 1}}, {"squadra": "PuffamiTutto", "allenatore": "Puffetta", "mvp": {"pid": 2764, "nome": "Martinez L.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "INT", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 14.0, "media_voto": 8.0, "presenze": 1, "costo": 200}, "bomber": {"pid": 2764, "nome": "Martinez L.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "INT", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 14.0, "media_voto": 8.0, "presenze": 1, "costo": 200}, "assistman": {"pid": 4923, "nome": "Colombo", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "GEN", "gol": 0, "assist": 1, "amm": 0, "esp": 1, "clean_sheet": 0, "fantamedia": 4.75, "media_voto": 5.75, "presenze": 2, "costo": 36}, "badboy": {"pid": 4923, "nome": "Colombo", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "GEN", "gol": 0, "assist": 1, "amm": 0, "esp": 1, "clean_sheet": 0, "fantamedia": 4.75, "media_voto": 5.75, "presenze": 2, "costo": 36}, "affare": {"pid": 6684, "nome": "Ekkelenkamp", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "UDI", "gol": 1, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 7.75, "media_voto": 6.25, "presenze": 2, "costo": 4}}, {"squadra": "Francesco", "allenatore": "Francesco", "mvp": {"pid": 6204, "nome": "Kvernadze", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "FRO", "gol": 2, "assist": 0, "amm": 1, "esp": 0, "clean_sheet": 0, "fantamedia": 9.75, "media_voto": 7.0, "presenze": 2, "costo": 19}, "bomber": {"pid": 6204, "nome": "Kvernadze", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "FRO", "gol": 2, "assist": 0, "amm": 1, "esp": 0, "clean_sheet": 0, "fantamedia": 9.75, "media_voto": 7.0, "presenze": 2, "costo": 19}, "assistman": {"pid": 5951, "nome": "Kolo Muani", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "JUV", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 6.5, "media_voto": 6.0, "presenze": 2, "costo": 142}, "badboy": {"pid": 6204, "nome": "Kvernadze", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "FRO", "gol": 2, "assist": 0, "amm": 1, "esp": 0, "clean_sheet": 0, "fantamedia": 9.75, "media_voto": 7.0, "presenze": 2, "costo": 19}, "affare": {"pid": 6672, "nome": "Idzes", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "SAS", "gol": 0, "assist": 0, "amm": 0, "esp": 0, "clean_sheet": 0, "fantamedia": 6.5, "media_voto": 6.5, "presenze": 1, "costo": 1}}], "top_marcatori": [{"nome": "Moreira", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_fanta": "Samba Moranda", "squadra_sa": "MIL", "gol": 3, "assist": 0, "amm": 0, "esp": 0, "fantamedia": 12.0, "presenze": 2}, {"nome": "Mastantuono", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_fanta": "Mapi Group Srl", "squadra_sa": "FIO", "gol": 3, "assist": 0, "amm": 1, "esp": 0, "fantamedia": 11.5, "presenze": 2}, {"nome": "Maldini", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_fanta": "Benfiga FC", "squadra_sa": "CAG", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "fantamedia": 11.0, "presenze": 2}, {"nome": "Romero D.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_fanta": "Pajax", "squadra_sa": "PAR", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "fantamedia": 10.0, "presenze": 2}, {"nome": "Varela G.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_fanta": "Pajax", "squadra_sa": "MON", "gol": 2, "assist": 0, "amm": 1, "esp": 0, "fantamedia": 10.0, "presenze": 2}, {"nome": "Konè M.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_fanta": "culorotondo", "squadra_sa": "ROM", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "fantamedia": 10.0, "presenze": 2}, {"nome": "Martinez L.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_fanta": "PuffamiTutto", "squadra_sa": "INT", "gol": 2, "assist": 0, "amm": 0, "esp": 0, "fantamedia": 14.0, "presenze": 1}, {"nome": "Kvernadze", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_fanta": "Francesco", "squadra_sa": "FRO", "gol": 2, "assist": 0, "amm": 1, "esp": 0, "fantamedia": 9.75, "presenze": 2}, {"nome": "Calò", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_fanta": "FC La Carlona", "squadra_sa": "FRO", "gol": 1, "assist": 0, "amm": 0, "esp": 0, "fantamedia": 8.75, "presenze": 2}, {"nome": "Kaiki", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_fanta": "FC La Carlona", "squadra_sa": "COM", "gol": 1, "assist": 0, "amm": 0, "esp": 0, "fantamedia": 8.25, "presenze": 2}], "top_assist": [{"nome": "Thuram", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_fanta": "FC La Carlona", "squadra_sa": "INT", "gol": 1, "assist": 2, "amm": 0, "esp": 0, "fantamedia": 9.5, "presenze": 2}, {"nome": "Jimenez A.", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_fanta": "FC La Carlona", "squadra_sa": "FIO", "gol": 1, "assist": 1, "amm": 0, "esp": 0, "fantamedia": 8.75, "presenze": 2}, {"nome": "Diouf", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_fanta": "FC La Carlona", "squadra_sa": "INT", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "fantamedia": 7.0, "presenze": 2}, {"nome": "Unai Gomez", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_fanta": "LosingEleven", "squadra_sa": "UDI", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "fantamedia": 6.0, "presenze": 2}, {"nome": "Tavares N.", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_fanta": "LosingEleven", "squadra_sa": "LAZ", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "fantamedia": 6.75, "presenze": 2}, {"nome": "Celik", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_fanta": "LosingEleven", "squadra_sa": "JUV", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "fantamedia": 6.5, "presenze": 2}, {"nome": "Zielinski", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_fanta": "LosingEleven", "squadra_sa": "INT", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "fantamedia": 6.75, "presenze": 2}, {"nome": "Fagioli", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_fanta": "Barco FC", "squadra_sa": "FIO", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "fantamedia": 7.0, "presenze": 2}, {"nome": "Mandragora", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_fanta": "Barco FC", "squadra_sa": "TOR", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "fantamedia": 6.75, "presenze": 2}, {"nome": "Ramos G.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_fanta": "Samba Moranda", "squadra_sa": "MIL", "gol": 0, "assist": 1, "amm": 0, "esp": 0, "fantamedia": 6.75, "presenze": 2}], "top_cattivi": [{"nome": "Yeboah J.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_fanta": "FC La Carlona", "squadra_sa": "VEN", "gol": 0, "assist": 0, "amm": 0, "esp": 1, "fantamedia": 3.5, "presenze": 2}, {"nome": "Colombo", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_fanta": "PuffamiTutto", "squadra_sa": "GEN", "gol": 0, "assist": 1, "amm": 0, "esp": 1, "fantamedia": 4.75, "presenze": 2}, {"nome": "Bracaglia", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_fanta": "PuffamiTutto", "squadra_sa": "FRO", "gol": 0, "assist": 0, "amm": 2, "esp": 0, "fantamedia": 5.75, "presenze": 2}, {"nome": "Raimondo", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_fanta": "FC La Carlona", "squadra_sa": "FRO", "gol": 0, "assist": 0, "amm": 1, "esp": 0, "fantamedia": 5.75, "presenze": 2}, {"nome": "Zaniolo", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_fanta": "FC La Carlona", "squadra_sa": "UDI", "gol": 0, "assist": 0, "amm": 1, "esp": 0, "fantamedia": 5.0, "presenze": 1}, {"nome": "Varela G.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_fanta": "Pajax", "squadra_sa": "MON", "gol": 2, "assist": 0, "amm": 1, "esp": 0, "fantamedia": 10.0, "presenze": 2}, {"nome": "Belghali", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_fanta": "Pajax", "squadra_sa": "TOR", "gol": 0, "assist": 0, "amm": 1, "esp": 0, "fantamedia": 5.5, "presenze": 2}, {"nome": "Couto", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_fanta": "Pajax", "squadra_sa": "COM", "gol": 0, "assist": 0, "amm": 1, "esp": 0, "fantamedia": 5.5, "presenze": 2}, {"nome": "Delprato", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_fanta": "LosingEleven", "squadra_sa": "PAR", "gol": 0, "assist": 0, "amm": 1, "esp": 0, "fantamedia": 5.75, "presenze": 2}, {"nome": "Bastoni", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_fanta": "LosingEleven", "squadra_sa": "INT", "gol": 0, "assist": 0, "amm": 1, "esp": 0, "fantamedia": 5.75, "presenze": 2}], "giornate": [{"giornata": 1, "squadre": [{"tid": 16765021, "nome": "FC La Carlona", "allenatore": "Gennaro Rappuso", "tot": 74.5, "best_tot": 89.5, "modulo": "343", "punti_gara": 1, "rimpianti": [{"pid": 6869, "nome": "Ramon", "squadra_serie_a": "COM", "ruolo": "D", "ruolo_classe": "badge-d", "voto": 7, "fantavoto": 10, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "FC La Carlona", "giornata": 1}, {"pid": 5514, "nome": "Vasquez", "squadra_serie_a": "GEN", "ruolo": "D", "ruolo_classe": "badge-d", "voto": 6, "fantavoto": 8, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "FC La Carlona", "giornata": 1}, {"pid": 4871, "nome": "Thuram", "squadra_serie_a": "INT", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 7.5, "fantavoto": 11.5, "gol": 1, "assist": 1, "clean_sheet": 0, "squadra": "FC La Carlona", "giornata": 1}, {"pid": 4463, "nome": "Esposito Se.", "squadra_serie_a": "SAS", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 7.5, "fantavoto": 10.5, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "FC La Carlona", "giornata": 1}]}, {"tid": 16765183, "nome": "Benfiga FC", "allenatore": "Dicken Cool", "tot": 66.5, "best_tot": 72.0, "modulo": "442", "punti_gara": 1, "rimpianti": [{"pid": 4896, "nome": "Maldini", "squadra_serie_a": "CAG", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 7, "fantavoto": 11, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "Benfiga FC", "giornata": 1}]}, {"tid": 16765239, "nome": "Pajax", "allenatore": "Pedencio", "tot": 72, "best_tot": 72.5, "modulo": "352", "punti_gara": 1, "rimpianti": [{"pid": 6669, "nome": "Bonny", "squadra_serie_a": "INT", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 7, "fantavoto": 10, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "Pajax", "giornata": 1}, {"pid": 7554, "nome": "Romero D.", "squadra_serie_a": "PAR", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 7, "fantavoto": 10, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "Pajax", "giornata": 1}]}, {"tid": 16766957, "nome": "LosingEleven", "allenatore": "JosePurinho", "tot": 65.5, "best_tot": 67.5, "modulo": "343", "punti_gara": 0, "rimpianti": [{"pid": 6783, "nome": "Unai Gomez", "squadra_serie_a": "UDI", "ruolo": "C", "ruolo_classe": "badge-c", "voto": 6, "fantavoto": 7, "gol": 0, "assist": 1, "clean_sheet": 0, "squadra": "LosingEleven", "giornata": 1}]}, {"tid": 16769781, "nome": "Barco FC", "allenatore": "Giambalaya", "tot": 71.5, "best_tot": 76.5, "modulo": "343", "punti_gara": 3, "rimpianti": [{"pid": 7272, "nome": "Gueye", "squadra_serie_a": "UDI", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 6.5, "fantavoto": 9.5, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "Barco FC", "giornata": 1}]}, {"tid": 16778235, "nome": "Samba Moranda", "allenatore": "Sambino", "tot": 66, "best_tot": 80.0, "modulo": "343", "punti_gara": 1, "rimpianti": [{"pid": 6372, "nome": "Moreira", "squadra_serie_a": "MIL", "ruolo": "C", "ruolo_classe": "badge-c", "voto": 8, "fantavoto": 14, "gol": 2, "assist": 0, "clean_sheet": 0, "squadra": "Samba Moranda", "giornata": 1}, {"pid": 7347, "nome": "Bowie", "squadra_serie_a": "SAS", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 7, "fantavoto": 10, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "Samba Moranda", "giornata": 1}]}, {"tid": 16787509, "nome": "culorotondo", "allenatore": "falso2", "tot": 71, "best_tot": 76.5, "modulo": "433", "punti_gara": 0, "rimpianti": [{"pid": 6821, "nome": "Hainaut", "squadra_serie_a": "VEN", "ruolo": "D", "ruolo_classe": "badge-d", "voto": 6.5, "fantavoto": 9.5, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "culorotondo", "giornata": 1}]}, {"tid": 19738700, "nome": "Mapi Group Srl", "allenatore": "Giampietro Manenti", "tot": 79.5, "best_tot": 84.5, "modulo": "532", "punti_gara": 3, "rimpianti": [{"pid": 7484, "nome": "Adams A.", "squadra_serie_a": "VEN", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 6.5, "fantavoto": 9.5, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "Mapi Group Srl", "giornata": 1}, {"pid": 2423, "nome": "Pulisic", "squadra_serie_a": "MIL", "ruolo": "C", "ruolo_classe": "badge-c", "voto": 6.5, "fantavoto": 7, "gol": 0, "assist": 1, "clean_sheet": 0, "squadra": "Mapi Group Srl", "giornata": 1}]}, {"tid": 19954095, "nome": "PuffamiTutto", "allenatore": "Puffetta", "tot": 67.5, "best_tot": 74.0, "modulo": "343", "punti_gara": 1, "rimpianti": [{"pid": 6021, "nome": "Abankwah", "squadra_serie_a": "UDI", "ruolo": "D", "ruolo_classe": "badge-d", "voto": 6, "fantavoto": 9, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "PuffamiTutto", "giornata": 1}]}, {"tid": 19980348, "nome": "Francesco", "allenatore": "Francesco", "tot": 68.5, "best_tot": 70.5, "modulo": "442", "punti_gara": 1, "rimpianti": []}]}, {"giornata": 2, "squadre": [{"tid": 16765021, "nome": "FC La Carlona", "allenatore": "Gennaro Rappuso", "tot": 71.5, "best_tot": 80.0, "modulo": "343", "punti_gara": 1, "rimpianti": [{"pid": 7472, "nome": "Calò", "squadra_serie_a": "FRO", "ruolo": "C", "ruolo_classe": "badge-c", "voto": 7, "fantavoto": 11, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "FC La Carlona", "giornata": 2}]}, {"tid": 16765183, "nome": "Benfiga FC", "allenatore": "Dicken Cool", "tot": 71, "best_tot": 72.0, "modulo": "442", "punti_gara": 0, "rimpianti": []}, {"tid": 16765239, "nome": "Pajax", "allenatore": "Pedencio", "tot": 79, "best_tot": 89.5, "modulo": "433", "punti_gara": 3, "rimpianti": [{"pid": 7523, "nome": "Varela G.", "squadra_serie_a": "MON", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 7.5, "fantavoto": 14, "gol": 2, "assist": 0, "clean_sheet": 0, "squadra": "Pajax", "giornata": 2}]}, {"tid": 16766957, "nome": "LosingEleven", "allenatore": "JosePurinho", "tot": 63.5, "best_tot": 66.0, "modulo": "433", "punti_gara": 0, "rimpianti": [{"pid": 4657, "nome": "Celik", "squadra_serie_a": "JUV", "ruolo": "D", "ruolo_classe": "badge-d", "voto": 6.5, "fantavoto": 7.5, "gol": 0, "assist": 1, "clean_sheet": 0, "squadra": "LosingEleven", "giornata": 2}]}, {"tid": 16769781, "nome": "Barco FC", "allenatore": "Giambalaya", "tot": 71.5, "best_tot": 72.5, "modulo": "343", "punti_gara": 1, "rimpianti": []}, {"tid": 16778235, "nome": "Samba Moranda", "allenatore": "Sambino", "tot": 81, "best_tot": 83.5, "modulo": "343", "punti_gara": 3, "rimpianti": [{"pid": 4210, "nome": "Mina", "squadra_serie_a": "CAG", "ruolo": "D", "ruolo_classe": "badge-d", "voto": 7, "fantavoto": 7, "gol": 0, "assist": 0, "clean_sheet": 0, "squadra": "Samba Moranda", "giornata": 2}]}, {"tid": 16787509, "nome": "culorotondo", "allenatore": "falso2", "tot": 82, "best_tot": 84.5, "modulo": "442", "punti_gara": 3, "rimpianti": [{"pid": 4998, "nome": "Molina N.", "squadra_serie_a": "ROM", "ruolo": "D", "ruolo_classe": "badge-d", "voto": 6.5, "fantavoto": 7.5, "gol": 0, "assist": 1, "clean_sheet": 0, "squadra": "culorotondo", "giornata": 2}]}, {"tid": 19738700, "nome": "Mapi Group Srl", "allenatore": "Giampietro Manenti", "tot": 72, "best_tot": 84.5, "modulo": "541", "punti_gara": 0, "rimpianti": [{"pid": 6229, "nome": "Tourè E.", "squadra_serie_a": "PAR", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 6.5, "fantavoto": 7.5, "gol": 0, "assist": 1, "clean_sheet": 0, "squadra": "Mapi Group Srl", "giornata": 2}, {"pid": 7349, "nome": "Kulenovic", "squadra_serie_a": "TOR", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 7, "fantavoto": 10, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "Mapi Group Srl", "giornata": 2}, {"pid": 6884, "nome": "Conceicao", "squadra_serie_a": "JUV", "ruolo": "C", "ruolo_classe": "badge-c", "voto": 7, "fantavoto": 10.5, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "Mapi Group Srl", "giornata": 2}]}, {"tid": 19954095, "nome": "PuffamiTutto", "allenatore": "Puffetta", "tot": 76, "best_tot": 81.5, "modulo": "343", "punti_gara": 3, "rimpianti": [{"pid": 4923, "nome": "Colombo", "squadra_serie_a": "GEN", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 6.5, "fantavoto": 7.5, "gol": 0, "assist": 1, "clean_sheet": 0, "squadra": "PuffamiTutto", "giornata": 2}]}, {"tid": 19980348, "nome": "Francesco", "allenatore": "Francesco", "tot": 73.5, "best_tot": 78.5, "modulo": "442", "punti_gara": 0, "rimpianti": [{"pid": 6204, "nome": "Kvernadze", "squadra_serie_a": "FRO", "ruolo": "A", "ruolo_classe": "badge-a", "voto": 7, "fantavoto": 9.5, "gol": 1, "assist": 0, "clean_sheet": 0, "squadra": "Francesco", "giornata": 2}]}]}], "moduli": [{"modulo": "532", "usato": 1, "media_punti": 79.5, "vittorie": 1, "pareggi": 0, "sconfitte": 0, "win_rate": 100.0}, {"modulo": "442", "usato": 5, "media_punti": 72.3, "vittorie": 1, "pareggi": 2, "sconfitte": 2, "win_rate": 20.0}, {"modulo": "352", "usato": 1, "media_punti": 72.0, "vittorie": 0, "pareggi": 1, "sconfitte": 0, "win_rate": 0.0}, {"modulo": "541", "usato": 1, "media_punti": 72.0, "vittorie": 0, "pareggi": 0, "sconfitte": 1, "win_rate": 0.0}, {"modulo": "343", "usato": 9, "media_punti": 71.67, "vittorie": 3, "pareggi": 5, "sconfitte": 1, "win_rate": 33.3}, {"modulo": "433", "usato": 3, "media_punti": 71.17, "vittorie": 1, "pareggi": 0, "sconfitte": 2, "win_rate": 33.3}], "rose": [{"squadra": "FC La Carlona", "allenatore": "Gennaro Rappuso", "crediti_spesi": 477, "crediti_residui": 23, "top_player": "Thuram", "top_costo": 155, "rosa": [{"nome": "Thuram", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "INT", "costo": 155, "quotazione": 1, "fantamedia": 8.62}, {"nome": "Baturina", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "COM", "costo": 71, "quotazione": 1, "fantamedia": 7.4}, {"nome": "De Ketelaere", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "ATA", "costo": 55, "quotazione": 1, "fantamedia": 5.7}, {"nome": "Zaniolo", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "UDI", "costo": 41, "quotazione": 1, "fantamedia": 5.75}, {"nome": "Esposito Se.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "SAS", "costo": 25, "quotazione": 1, "fantamedia": 8.0}, {"nome": "Frattesi", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "LAZ", "costo": 25, "quotazione": 1, "fantamedia": 8.5}, {"nome": "Ramon", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "COM", "costo": 17, "quotazione": 1, "fantamedia": 6.7}, {"nome": "Mancini", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ROM", "costo": 15, "quotazione": 1, "fantamedia": 6.4}, {"nome": "Diouf", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "INT", "costo": 12, "quotazione": 1, "fantamedia": 7.25}, {"nome": "Samardzic", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ATA", "costo": 12, "quotazione": 1, "fantamedia": 6.6}, {"nome": "Yeboah J.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "VEN", "costo": 10, "quotazione": 1, "fantamedia": 5.9}, {"nome": "Bijlow", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "GEN", "costo": 7, "quotazione": 1, "fantamedia": 3.8}, {"nome": "Jimenez A.", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "FIO", "costo": 7, "quotazione": 1, "fantamedia": 6.75}, {"nome": "Valeri", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "PAR", "costo": 6, "quotazione": 1, "fantamedia": 6.2}, {"nome": "Vasquez", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "GEN", "costo": 5, "quotazione": 1, "fantamedia": 6.12}, {"nome": "Obrador", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "SAS", "costo": 3, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Caprile", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "CAG", "costo": 3, "quotazione": 1, "fantamedia": 6.1}, {"nome": "Calò", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FRO", "costo": 1, "quotazione": 1, "fantamedia": 7.3}, {"nome": "Oulai", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FIO", "costo": 1, "quotazione": 1, "fantamedia": 5.67}, {"nome": "Kaiki", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "COM", "costo": 1, "quotazione": 1, "fantamedia": 7.75}, {"nome": "Neres", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "NAP", "costo": 1, "quotazione": 1, "fantamedia": 5.75}, {"nome": "Sanchez Ro.", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "COM", "costo": 1, "quotazione": 3, "fantamedia": 5.0}, {"nome": "Raimondo", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "FRO", "costo": 1, "quotazione": 1, "fantamedia": 8.8}, {"nome": "Badiashile", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "NAP", "costo": 1, "quotazione": 2, "fantamedia": 5.0}, {"nome": "Gaetano", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ATA", "costo": 1, "quotazione": 1, "fantamedia": 5.62}]}, {"squadra": "Benfiga FC", "allenatore": "Dicken Cool", "crediti_spesi": 500, "crediti_residui": 0, "top_player": "Dybala", "top_costo": 118, "rosa": [{"nome": "Dybala", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "ROM", "costo": 118, "quotazione": 1, "fantamedia": 7.9}, {"nome": "Castro S.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "ROM", "costo": 70, "quotazione": 1, "fantamedia": 6.0}, {"nome": "De Bruyne", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "NAP", "costo": 52, "quotazione": 1, "fantamedia": 7.2}, {"nome": "Mora", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ROM", "costo": 50, "quotazione": 1, "fantamedia": 7.12}, {"nome": "Krstovic", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "ATA", "costo": 50, "quotazione": 1, "fantamedia": 6.1}, {"nome": "Di Lorenzo", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "NAP", "costo": 24, "quotazione": 1, "fantamedia": 6.1}, {"nome": "Alajbegovic", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "JUV", "costo": 22, "quotazione": 1, "fantamedia": 5.88}, {"nome": "Mandas", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "LAZ", "costo": 20, "quotazione": 1, "fantamedia": 6.6}, {"nome": "Cissè A.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "MIL", "costo": 18, "quotazione": 1, "fantamedia": 7.62}, {"nome": "Bartesaghi", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "MIL", "costo": 15, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Maldini", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "CAG", "costo": 15, "quotazione": 1, "fantamedia": 8.3}, {"nome": "Vitinha O.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "GEN", "costo": 13, "quotazione": 1, "fantamedia": 5.62}, {"nome": "Boga", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "JUV", "costo": 10, "quotazione": 1, "fantamedia": 5.83}, {"nome": "Zalewski", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ATA", "costo": 6, "quotazione": 1, "fantamedia": 6.33}, {"nome": "Muric", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "SAS", "costo": 4, "quotazione": 1, "fantamedia": 3.8}, {"nome": "Casadei", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "TOR", "costo": 2, "quotazione": 1, "fantamedia": 5.0}, {"nome": "Dodò", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "FIO", "costo": 2, "quotazione": 1, "fantamedia": 5.0}, {"nome": "Pasalic", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ATA", "costo": 2, "quotazione": 1, "fantamedia": 5.5}, {"nome": "Motta", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "LAZ", "costo": 1, "quotazione": 1, "fantamedia": 0.0}, {"nome": "Kempf", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "COM", "costo": 1, "quotazione": 1, "fantamedia": 6.25}, {"nome": "Ebosse", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "UDI", "costo": 1, "quotazione": 1, "fantamedia": 5.6}, {"nome": "Doig", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "SAS", "costo": 1, "quotazione": 1, "fantamedia": 6.7}, {"nome": "Estupinan", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "MIL", "costo": 1, "quotazione": 1, "fantamedia": 5.75}, {"nome": "Gabbia", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "MIL", "costo": 1, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Odgaard", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "BOL", "costo": 1, "quotazione": 1, "fantamedia": 5.5}]}, {"squadra": "Pajax", "allenatore": "Pedencio", "crediti_spesi": 497, "crediti_residui": 3, "top_player": "Malen", "top_costo": 195, "rosa": [{"nome": "Malen", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "ROM", "costo": 195, "quotazione": 1, "fantamedia": 10.6}, {"nome": "Paz N.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "COM", "costo": 106, "quotazione": 1, "fantamedia": 7.0}, {"nome": "Esposito F.P.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "INT", "costo": 66, "quotazione": 1, "fantamedia": 8.5}, {"nome": "Martinez Jo.", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "INT", "costo": 31, "quotazione": 1, "fantamedia": 4.4}, {"nome": "Vergara", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "NAP", "costo": 12, "quotazione": 1, "fantamedia": 7.5}, {"nome": "Spence", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "INT", "costo": 12, "quotazione": 1, "fantamedia": 0.0}, {"nome": "Belghali", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "TOR", "costo": 11, "quotazione": 3, "fantamedia": 6.17}, {"nome": "Couto", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "COM", "costo": 11, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Santos A.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "NAP", "costo": 10, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Sucic P.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "INT", "costo": 10, "quotazione": 1, "fantamedia": 6.12}, {"nome": "Miranda J.", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "BOL", "costo": 9, "quotazione": 1, "fantamedia": 6.38}, {"nome": "Cambiaso", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "JUV", "costo": 4, "quotazione": 1, "fantamedia": 5.5}, {"nome": "Provedel", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "INT", "costo": 4, "quotazione": 1, "fantamedia": 0.0}, {"nome": "Varela G.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "MON", "costo": 2, "quotazione": 1, "fantamedia": 9.75}, {"nome": "Taylor K.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "LAZ", "costo": 2, "quotazione": 1, "fantamedia": 6.1}, {"nome": "Bonny", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "INT", "costo": 2, "quotazione": 1, "fantamedia": 8.0}, {"nome": "Oyono A.", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "FRO", "costo": 2, "quotazione": 1, "fantamedia": 6.5}, {"nome": "Hutchinson", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "MIL", "costo": 1, "quotazione": 3, "fantamedia": 0.0}, {"nome": "Romero D.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "PAR", "costo": 1, "quotazione": 1, "fantamedia": 8.0}, {"nome": "Jashari", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "MIL", "costo": 1, "quotazione": 1, "fantamedia": 6.25}, {"nome": "De Winter", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "MIL", "costo": 1, "quotazione": 1, "fantamedia": 6.2}, {"nome": "Elmas", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ATA", "costo": 1, "quotazione": 2, "fantamedia": 5.5}, {"nome": "Lobotka", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "NAP", "costo": 1, "quotazione": 1, "fantamedia": 7.1}, {"nome": "Marusic", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "LAZ", "costo": 1, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Di Gennaro", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "INT", "costo": 1, "quotazione": 1, "fantamedia": 0.0}]}, {"squadra": "LosingEleven", "allenatore": "JosePurinho", "crediti_spesi": 494, "crediti_residui": 6, "top_player": "Hojlund", "top_costo": 182, "rosa": [{"nome": "Hojlund", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "NAP", "costo": 182, "quotazione": 1, "fantamedia": 7.3}, {"nome": "McTominay", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "NAP", "costo": 51, "quotazione": 1, "fantamedia": 5.75}, {"nome": "Simeone", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "TOR", "costo": 37, "quotazione": 1, "fantamedia": 5.6}, {"nome": "Butez", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "COM", "costo": 26, "quotazione": 1, "fantamedia": 4.62}, {"nome": "Bastoni", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "INT", "costo": 23, "quotazione": 1, "fantamedia": 5.9}, {"nome": "Rrahmani", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "NAP", "costo": 19, "quotazione": 1, "fantamedia": 6.4}, {"nome": "Gonzalez N.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "JUV", "costo": 19, "quotazione": 2, "fantamedia": 7.38}, {"nome": "Skorupski", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "BOL", "costo": 18, "quotazione": 1, "fantamedia": 4.38}, {"nome": "Lucca", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "NAP", "costo": 16, "quotazione": 1, "fantamedia": 5.75}, {"nome": "Ederson D.S.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ATA", "costo": 16, "quotazione": 1, "fantamedia": 6.5}, {"nome": "Tavares N.", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "LAZ", "costo": 14, "quotazione": 1, "fantamedia": 6.88}, {"nome": "Spinazzola", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "NAP", "costo": 14, "quotazione": 1, "fantamedia": 5.88}, {"nome": "Zielinski", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "INT", "costo": 11, "quotazione": 1, "fantamedia": 7.3}, {"nome": "Kamara H.", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "UDI", "costo": 9, "quotazione": 1, "fantamedia": 7.4}, {"nome": "Scalvini", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ATA", "costo": 8, "quotazione": 1, "fantamedia": 5.8}, {"nome": "Zambo Anguissa", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "NAP", "costo": 8, "quotazione": 1, "fantamedia": 5.33}, {"nome": "Delprato", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "PAR", "costo": 5, "quotazione": 1, "fantamedia": 5.8}, {"nome": "Thuram K.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "JUV", "costo": 4, "quotazione": 1, "fantamedia": 0.0}, {"nome": "Celik", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "JUV", "costo": 4, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Kessiè", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ATA", "costo": 4, "quotazione": 3, "fantamedia": 5.25}, {"nome": "Falcone", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "LEC", "costo": 2, "quotazione": 1, "fantamedia": 4.0}, {"nome": "Kevin Carlos", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "CAG", "costo": 1, "quotazione": 1, "fantamedia": 5.25}, {"nome": "Stulic", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "LEC", "costo": 1, "quotazione": 1, "fantamedia": 5.5}, {"nome": "Bayo V.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "UDI", "costo": 1, "quotazione": 1, "fantamedia": 5.33}, {"nome": "Unai Gomez", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "UDI", "costo": 1, "quotazione": 1, "fantamedia": 5.75}]}, {"squadra": "Barco FC", "allenatore": "Giambalaya", "crediti_spesi": 492, "crediti_residui": 8, "top_player": "Kean", "top_costo": 183, "rosa": [{"nome": "Kean", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "COM", "costo": 183, "quotazione": 1, "fantamedia": 6.25}, {"nome": "Calhanoglu", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "INT", "costo": 70, "quotazione": 1, "fantamedia": 8.5}, {"nome": "Dimarco", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "INT", "costo": 60, "quotazione": 1, "fantamedia": 6.3}, {"nome": "Da Cunha", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "COM", "costo": 35, "quotazione": 1, "fantamedia": 6.2}, {"nome": "Bremer", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "JUV", "costo": 31, "quotazione": 1, "fantamedia": 7.6}, {"nome": "Atta", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FIO", "costo": 17, "quotazione": 1, "fantamedia": 5.4}, {"nome": "Okoye", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "UDI", "costo": 16, "quotazione": 1, "fantamedia": 4.1}, {"nome": "Hermoso", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ROM", "costo": 14, "quotazione": 1, "fantamedia": 6.7}, {"nome": "Gnonto", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "FIO", "costo": 10, "quotazione": 3, "fantamedia": 5.75}, {"nome": "N'Dicka", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ROM", "costo": 10, "quotazione": 1, "fantamedia": 5.67}, {"nome": "De Gea", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "FIO", "costo": 10, "quotazione": 1, "fantamedia": 3.4}, {"nome": "Mandragora", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "TOR", "costo": 7, "quotazione": 1, "fantamedia": 6.9}, {"nome": "Comuzzo", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "TOR", "costo": 6, "quotazione": 1, "fantamedia": 6.75}, {"nome": "Koopmeiners", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "JUV", "costo": 5, "quotazione": 1, "fantamedia": 7.25}, {"nome": "Zappacosta", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ATA", "costo": 5, "quotazione": 1, "fantamedia": 5.83}, {"nome": "Coco", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "TOR", "costo": 3, "quotazione": 1, "fantamedia": 5.9}, {"nome": "Dragusin", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "FIO", "costo": 3, "quotazione": 1, "fantamedia": 5.4}, {"nome": "Mendy P.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "CAG", "costo": 1, "quotazione": 1, "fantamedia": 6.9}, {"nome": "Gueye", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "UDI", "costo": 1, "quotazione": 1, "fantamedia": 6.75}, {"nome": "Christensen O.", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "FIO", "costo": 1, "quotazione": 1, "fantamedia": 0.0}, {"nome": "Ndour", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FIO", "costo": 1, "quotazione": 1, "fantamedia": 5.9}, {"nome": "Geubbels", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "LEC", "costo": 1, "quotazione": 1, "fantamedia": 5.25}, {"nome": "Messias", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "GEN", "costo": 1, "quotazione": 1, "fantamedia": 6.1}, {"nome": "Fagioli", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FIO", "costo": 1, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Lontani", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "PAR", "costo": 0, "quotazione": 1, "fantamedia": 6.8}]}, {"squadra": "Samba Moranda", "allenatore": "Sambino", "crediti_spesi": 481, "crediti_residui": 19, "top_player": "Ramos G.", "top_costo": 150, "rosa": [{"nome": "Ramos G.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "MIL", "costo": 150, "quotazione": 1, "fantamedia": 6.9}, {"nome": "Rabiot", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "MIL", "costo": 70, "quotazione": 1, "fantamedia": 8.0}, {"nome": "Zaccagni", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "LAZ", "costo": 48, "quotazione": 1, "fantamedia": 7.2}, {"nome": "Laurientè", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "SAS", "costo": 40, "quotazione": 1, "fantamedia": 6.4}, {"nome": "Soulè", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "ROM", "costo": 37, "quotazione": 1, "fantamedia": 8.0}, {"nome": "Cambiaghi", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "BOL", "costo": 21, "quotazione": 1, "fantamedia": 5.8}, {"nome": "Gila", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "MIL", "costo": 20, "quotazione": 1, "fantamedia": 6.2}, {"nome": "Rowe", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ATA", "costo": 16, "quotazione": 1, "fantamedia": 5.5}, {"nome": "Piccoli", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "BOL", "costo": 15, "quotazione": 1, "fantamedia": 6.3}, {"nome": "Moreira", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "MIL", "costo": 14, "quotazione": 1, "fantamedia": 9.67}, {"nome": "Bellanova", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ATA", "costo": 8, "quotazione": 1, "fantamedia": 5.5}, {"nome": "El Shaarawy", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "GEN", "costo": 8, "quotazione": 3, "fantamedia": 5.75}, {"nome": "Stones", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "INT", "costo": 7, "quotazione": 1, "fantamedia": 5.83}, {"nome": "Njie", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FIO", "costo": 6, "quotazione": 1, "fantamedia": 6.12}, {"nome": "Camarda", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "MIL", "costo": 4, "quotazione": 1, "fantamedia": 0.0}, {"nome": "Mina", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "CAG", "costo": 4, "quotazione": 1, "fantamedia": 7.0}, {"nome": "Perri", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "TOR", "costo": 3, "quotazione": 3, "fantamedia": 4.33}, {"nome": "Isaksen", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "LAZ", "costo": 3, "quotazione": 1, "fantamedia": 5.62}, {"nome": "Mascardi", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "TOR", "costo": 1, "quotazione": 1, "fantamedia": 3.75}, {"nome": "Bowie", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "SAS", "costo": 1, "quotazione": 1, "fantamedia": 6.8}, {"nome": "Heggem", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "BOL", "costo": 1, "quotazione": 1, "fantamedia": 5.5}, {"nome": "Joao Mario", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "FIO", "costo": 1, "quotazione": 1, "fantamedia": 5.25}, {"nome": "Rensch", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ROM", "costo": 1, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Corvi", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "PAR", "costo": 1, "quotazione": 1, "fantamedia": 4.7}, {"nome": "Doekhi", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "LAZ", "costo": 1, "quotazione": 1, "fantamedia": 6.67}]}, {"squadra": "culorotondo", "allenatore": "falso2", "crediti_spesi": 482, "crediti_residui": 18, "top_player": "Yildiz", "top_costo": 83, "rosa": [{"nome": "Yildiz", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "JUV", "costo": 83, "quotazione": 1, "fantamedia": 5.5}, {"nome": "Pinamonti", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "LAZ", "costo": 67, "quotazione": 1, "fantamedia": 5.25}, {"nome": "Berardi", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "SAS", "costo": 46, "quotazione": 1, "fantamedia": 6.88}, {"nome": "Davis K.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "UDI", "costo": 42, "quotazione": 1, "fantamedia": 6.75}, {"nome": "Svilar", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "ROM", "costo": 40, "quotazione": 1, "fantamedia": 5.8}, {"nome": "Molina N.", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ROM", "costo": 39, "quotazione": 1, "fantamedia": 6.38}, {"nome": "Raspadori", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "ATA", "costo": 30, "quotazione": 1, "fantamedia": 6.75}, {"nome": "Dovbyk", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "BOL", "costo": 18, "quotazione": 1, "fantamedia": 6.67}, {"nome": "Politano", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "NAP", "costo": 18, "quotazione": 1, "fantamedia": 6.6}, {"nome": "Chalobah T.", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "COM", "costo": 17, "quotazione": 1, "fantamedia": 6.12}, {"nome": "McKennie", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "JUV", "costo": 17, "quotazione": 1, "fantamedia": 6.25}, {"nome": "Meret", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "NAP", "costo": 16, "quotazione": 1, "fantamedia": 4.67}, {"nome": "Gudmundsson A.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "LAZ", "costo": 13, "quotazione": 1, "fantamedia": 6.67}, {"nome": "Vojvoda", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "UDI", "costo": 9, "quotazione": 1, "fantamedia": 5.7}, {"nome": "Konè M.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ROM", "costo": 7, "quotazione": 1, "fantamedia": 7.7}, {"nome": "Bernardeschi", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "BOL", "costo": 5, "quotazione": 1, "fantamedia": 7.0}, {"nome": "Baldanzi", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "GEN", "costo": 4, "quotazione": 1, "fantamedia": 5.8}, {"nome": "Modric", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "MIL", "costo": 4, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Mangas", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "MON", "costo": 1, "quotazione": 1, "fantamedia": 7.2}, {"nome": "Bernasconi", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ATA", "costo": 1, "quotazione": 1, "fantamedia": 5.67}, {"nome": "Hainaut", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "VEN", "costo": 1, "quotazione": 1, "fantamedia": 6.9}, {"nome": "Bernabè", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "PAR", "costo": 1, "quotazione": 1, "fantamedia": 5.83}, {"nome": "Birindelli", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "MON", "costo": 1, "quotazione": 1, "fantamedia": 6.3}, {"nome": "Haps", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "VEN", "costo": 1, "quotazione": 1, "fantamedia": 5.62}, {"nome": "Milinkovic-Savic V.", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "NAP", "costo": 1, "quotazione": 1, "fantamedia": 6.0}]}, {"squadra": "Mapi Group Srl", "allenatore": "Giampietro Manenti", "crediti_spesi": 497, "crediti_residui": 3, "top_player": "Pulisic", "top_costo": 78, "rosa": [{"nome": "Pulisic", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "MIL", "costo": 78, "quotazione": 1, "fantamedia": 8.75}, {"nome": "Pellegrino M.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "FIO", "costo": 66, "quotazione": 1, "fantamedia": 6.8}, {"nome": "Diao", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "COM", "costo": 60, "quotazione": 1, "fantamedia": 7.7}, {"nome": "Wesley", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ROM", "costo": 41, "quotazione": 1, "fantamedia": 7.0}, {"nome": "Carnesecchi", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "ATA", "costo": 41, "quotazione": 1, "fantamedia": 5.5}, {"nome": "Mastantuono", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FIO", "costo": 40, "quotazione": 1, "fantamedia": 7.8}, {"nome": "Vicario", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "JUV", "costo": 37, "quotazione": 1, "fantamedia": 5.4}, {"nome": "Conceicao", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "JUV", "costo": 29, "quotazione": 1, "fantamedia": 7.1}, {"nome": "Akanji", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "INT", "costo": 22, "quotazione": 1, "fantamedia": 5.8}, {"nome": "Bisseck", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "INT", "costo": 17, "quotazione": 1, "fantamedia": 7.0}, {"nome": "Valle", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "COM", "costo": 14, "quotazione": 1, "fantamedia": 6.25}, {"nome": "Tiago Gabriel", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "LEC", "costo": 13, "quotazione": 1, "fantamedia": 7.5}, {"nome": "Ngonge", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "MON", "costo": 11, "quotazione": 2, "fantamedia": 0.0}, {"nome": "Perrone", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "COM", "costo": 10, "quotazione": 1, "fantamedia": 6.2}, {"nome": "Goncalves P.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "FIO", "costo": 4, "quotazione": 3, "fantamedia": 5.5}, {"nome": "Theate", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "BOL", "costo": 3, "quotazione": 3, "fantamedia": 5.83}, {"nome": "Thorstvedt", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "SAS", "costo": 2, "quotazione": 1, "fantamedia": 5.8}, {"nome": "Pellegrini Lo.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ROM", "costo": 2, "quotazione": 1, "fantamedia": 0.0}, {"nome": "Sutalo J.", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "LAZ", "costo": 1, "quotazione": 2, "fantamedia": 6.0}, {"nome": "Adams A.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "VEN", "costo": 1, "quotazione": 1, "fantamedia": 6.2}, {"nome": "Kulenovic", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "TOR", "costo": 1, "quotazione": 1, "fantamedia": 7.75}, {"nome": "Akinsanmiro", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "MON", "costo": 1, "quotazione": 1, "fantamedia": 6.25}, {"nome": "Stankovic F.", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "VEN", "costo": 1, "quotazione": 1, "fantamedia": 3.4}, {"nome": "Tourè E.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "PAR", "costo": 1, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Hien", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ATA", "costo": 1, "quotazione": 1, "fantamedia": 0.0}]}, {"squadra": "PuffamiTutto", "allenatore": "Puffetta", "crediti_spesi": 465, "crediti_residui": 35, "top_player": "Martinez L.", "top_costo": 200, "rosa": [{"nome": "Martinez L.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "INT", "costo": 200, "quotazione": 1, "fantamedia": 9.5}, {"nome": "Scamacca", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "ATA", "costo": 100, "quotazione": 1, "fantamedia": 6.6}, {"nome": "Douvikas", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "COM", "costo": 50, "quotazione": 1, "fantamedia": 7.4}, {"nome": "Beto", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "FIO", "costo": 37, "quotazione": 3, "fantamedia": 5.67}, {"nome": "Colombo", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "GEN", "costo": 36, "quotazione": 1, "fantamedia": 5.7}, {"nome": "Adams C.", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "TOR", "costo": 8, "quotazione": 1, "fantamedia": 8.67}, {"nome": "Douglas Luiz", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "JUV", "costo": 8, "quotazione": 1, "fantamedia": 5.4}, {"nome": "Jones C.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "INT", "costo": 5, "quotazione": 2, "fantamedia": 6.0}, {"nome": "Ekkelenkamp", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "UDI", "costo": 4, "quotazione": 1, "fantamedia": 7.8}, {"nome": "Chukwueze", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "MIL", "costo": 2, "quotazione": 1, "fantamedia": 6.8}, {"nome": "Cinquegrano", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "SAS", "costo": 1, "quotazione": 1, "fantamedia": 6.1}, {"nome": "Bracaglia", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "FRO", "costo": 1, "quotazione": 1, "fantamedia": 6.9}, {"nome": "Desplanches", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "FRO", "costo": 1, "quotazione": 1, "fantamedia": 0.0}, {"nome": "Valdepenas", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "FIO", "costo": 1, "quotazione": 1, "fantamedia": 5.33}, {"nome": "Gorter", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "LEC", "costo": 1, "quotazione": 1, "fantamedia": 7.5}, {"nome": "Troilo", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "PAR", "costo": 1, "quotazione": 1, "fantamedia": 5.5}, {"nome": "Cacciamani", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "TOR", "costo": 1, "quotazione": 1, "fantamedia": 6.3}, {"nome": "Marcandalli", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "GEN", "costo": 1, "quotazione": 1, "fantamedia": 5.2}, {"nome": "Palmisani", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "FRO", "costo": 1, "quotazione": 1, "fantamedia": 6.1}, {"nome": "Abankwah", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "UDI", "costo": 1, "quotazione": 1, "fantamedia": 6.7}, {"nome": "Kossounou", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "ATA", "costo": 1, "quotazione": 1, "fantamedia": 5.5}, {"nome": "Luis Henrique", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "INT", "costo": 1, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Thiam", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "MON", "costo": 1, "quotazione": 1, "fantamedia": 2.83}, {"nome": "Pavard", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "INT", "costo": 1, "quotazione": 1, "fantamedia": 5.75}, {"nome": "Cristante", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "ROM", "costo": 1, "quotazione": 1, "fantamedia": 6.3}]}, {"squadra": "Francesco", "allenatore": "Francesco", "crediti_spesi": 467, "crediti_residui": 33, "top_player": "Kolo Muani", "top_costo": 142, "rosa": [{"nome": "Kolo Muani", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "JUV", "costo": 142, "quotazione": 1, "fantamedia": 5.7}, {"nome": "Woltemade", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "JUV", "costo": 86, "quotazione": 3, "fantamedia": 5.75}, {"nome": "Orsolini", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "BOL", "costo": 38, "quotazione": 1, "fantamedia": 5.83}, {"nome": "Barella", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "INT", "costo": 35, "quotazione": 1, "fantamedia": 7.0}, {"nome": "Maignan", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "MIL", "costo": 30, "quotazione": 1, "fantamedia": 5.3}, {"nome": "Vlasic", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "TOR", "costo": 25, "quotazione": 1, "fantamedia": 5.4}, {"nome": "Kalulu", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "JUV", "costo": 22, "quotazione": 1, "fantamedia": 6.1}, {"nome": "Kvernadze", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "FRO", "costo": 19, "quotazione": 1, "fantamedia": 8.8}, {"nome": "Ostigard", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "GEN", "costo": 19, "quotazione": 1, "fantamedia": 5.4}, {"nome": "Solet", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "UDI", "costo": 14, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Pavlovic", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "MIL", "costo": 10, "quotazione": 1, "fantamedia": 6.1}, {"nome": "Zortea", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "BOL", "costo": 7, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Saelemaekers", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "MIL", "costo": 4, "quotazione": 1, "fantamedia": 6.5}, {"nome": "Lucumì", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "JUV", "costo": 3, "quotazione": 1, "fantamedia": 5.88}, {"nome": "Cutrone", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "MON", "costo": 3, "quotazione": 1, "fantamedia": 5.88}, {"nome": "Grabara", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "JUV", "costo": 1, "quotazione": 2, "fantamedia": 0.0}, {"nome": "Ekhator", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "JUV", "costo": 1, "quotazione": 1, "fantamedia": 0.0}, {"nome": "Torriani", "ruolo": "P", "ruolo_classe": "badge-p", "squadra_sa": "MIL", "costo": 1, "quotazione": 1, "fantamedia": 0.0}, {"nome": "Kelly L.", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "JUV", "costo": 1, "quotazione": 1, "fantamedia": 5.5}, {"nome": "Idzes", "ruolo": "D", "ruolo_classe": "badge-d", "squadra_sa": "SAS", "costo": 1, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Fabbian", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "PAR", "costo": 1, "quotazione": 1, "fantamedia": 5.75}, {"nome": "Sarr P.", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "JUV", "costo": 1, "quotazione": 3, "fantamedia": 5.75}, {"nome": "Caqueret", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "COM", "costo": 1, "quotazione": 1, "fantamedia": 6.0}, {"nome": "Milik", "ruolo": "A", "ruolo_classe": "badge-a", "squadra_sa": "JUV", "costo": 1, "quotazione": 1, "fantamedia": 0.0}, {"nome": "Locatelli", "ruolo": "C", "ruolo_classe": "badge-c", "squadra_sa": "JUV", "costo": 1, "quotazione": 1, "fantamedia": 6.33}]}], "status": {"sto": false, "activ": true, "sId": 21, "mday": 6, "mstr": "2026-10-10T13:00:00"}};
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderHero();
+      renderWhatIf();
+      renderClassificaRimpianti();
+      renderTeamTopPlayers();
+      renderLeaderboards();
+      renderRounds();
+      renderModuli();
+      renderRose();
+    });
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    function renderHero() {
+      const c = data.classifica_rimpianti;
+      if (c.length > 0) {
+        document.getElementById('top-team-regret').innerText = c[0].squadra;
+        document.getElementById('top-team-regret-sub').innerText = `${c[0].gol_panchina} gol persi in panchina`;
+      }
+
+      // What-If sfortunato & fortunato
+      const wSorted = [...data.classifica_whatif].sort((a, b) => b.diff_punti - a.diff_punti);
+      const unlucky = wSorted[0];
+      const lucky = wSorted[wSorted.length - 1];
+
+      if (unlucky) {
+        document.getElementById('top-whatif-unlucky').innerText = unlucky.squadra;
+        document.getElementById('top-whatif-unlucky-sub').innerText = `${unlucky.diff_punti > 0 ? '+' : ''}${unlucky.diff_punti} pt persi con scelte errate`;
+      }
+
+      if (lucky) {
+        document.getElementById('top-whatif-lucky').innerText = lucky.squadra;
+        document.getElementById('top-whatif-lucky-sub').innerText = `${lucky.diff_punti} pt guadagnati per errori avversari`;
+      }
+
+      // Miglior singolo bonus
+      let maxFv = 0;
+      let maxPlayer = "";
+      let maxTeam = "";
+      data.giornate.forEach(g => {
+        g.squadre.forEach(s => {
+          s.rimpianti.forEach(r => {
+            if (r.fantavoto > maxFv) {
+              maxFv = r.fantavoto;
+              maxPlayer = r.nome;
+              maxTeam = s.nome;
+            }
+          });
+        });
+      });
+      document.getElementById('top-single-bonus').innerText = `${maxPlayer} (${maxFv})`;
+      document.getElementById('top-single-bonus-sub').innerText = `in panchina con ${maxTeam}`;
+    }
+
+    function renderWhatIf() {
+      const tbody = document.getElementById('tbody-whatif');
+      tbody.innerHTML = "";
+      data.classifica_whatif.forEach((item, idx) => {
+        const rankClass = idx === 0 ? "rank-1" : idx === 1 ? "rank-2" : idx === 2 ? "rank-3" : "";
+        const rankIcon = idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : (idx + 1);
+        const diffClass = item.diff_punti > 0 ? "diff-plus" : item.diff_punti < 0 ? "diff-minus" : "diff-zero";
+        const diffText = item.diff_punti > 0 ? `+${item.diff_punti} pt 💥` : item.diff_punti < 0 ? `${item.diff_punti} pt 🍀` : `0 pt ⚖️`;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="rank-cell ${rankClass}">${rankIcon}</td>
+          <td>
+            <div class="team-cell">${item.squadra}</div>
+            <div class="coach-name">${item.allenatore}</div>
+          </td>
+          <td><b>${item.punti_reali}</b></td>
+          <td><span class="stat-badge badge-fv">${item.punti_whatif} pt</span></td>
+          <td class="${diffClass}">${diffText}</td>
+          <td>${item.fanta_tot_reale}</td>
+          <td><b>${item.fanta_tot_whatif}</b></td>
+          <td>${item.gol_fatti_reali} ➔ <b>${item.gol_fatti_whatif}</b></td>
+          <td><span style="font-weight: 700; font-size: 0.85rem;">${item.stato_fortuna}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderClassificaRimpianti() {
+      const tbody = document.getElementById('tbody-classifica-rimpianti');
+      tbody.innerHTML = "";
+      data.classifica_rimpianti.forEach((item, idx) => {
+        const rankClass = idx === 0 ? "rank-1" : idx === 1 ? "rank-2" : idx === 2 ? "rank-3" : "";
+        const rankIcon = idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : (idx + 1);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="rank-cell ${rankClass}">${rankIcon}</td>
+          <td>
+            <div class="team-cell">${item.squadra}</div>
+            <div class="coach-name">${item.allenatore}</div>
+          </td>
+          <td><span class="stat-badge badge-gol">${item.gol_panchina} Gol ⚽</span></td>
+          <td><span class="stat-badge badge-assist">${item.assist_panchina} Assist 👟</span></td>
+          <td><b>${item.totale_rimpianti}</b> giocatori</td>
+          <td><span class="stat-badge badge-fv">${item.fantavoto_medio_panchina} FM</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderTeamTopPlayers() {
+      const container = document.getElementById('teams-top-container');
+      container.innerHTML = "";
+      data.team_top_players.forEach(t => {
+        const card = document.createElement('div');
+        card.className = "team-top-card";
+        
+        let mvpStr = t.mvp ? `<span class="badge-role ${t.mvp.ruolo_classe}">${t.mvp.ruolo}</span>${t.mvp.nome} (${t.mvp.fantamedia} FM)` : "Nessuno a voto";
+        let bomberStr = t.bomber ? `<span class="badge-role ${t.bomber.ruolo_classe}">${t.bomber.ruolo}</span>${t.bomber.nome} (${t.bomber.gol} ⚽)` : "Nessun gol";
+        let assistStr = t.assistman ? `<span class="badge-role ${t.assistman.ruolo_classe}">${t.assistman.ruolo}</span>${t.assistman.nome} (${t.assistman.assist} 👟)` : "Nessun assist";
+        let badboyStr = t.badboy ? `<span class="badge-role ${t.badboy.ruolo_classe}">${t.badboy.ruolo}</span>${t.badboy.nome} (${t.badboy.amm} 🟨 ${t.badboy.esp ? t.badboy.esp + ' 🟥' : ''})` : "Tutti puliti";
+        let affareStr = t.affare ? `<span class="badge-role ${t.affare.ruolo_classe}">${t.affare.ruolo}</span>${t.affare.nome} (${t.affare.fantamedia} FM @ ${t.affare.costo} cr)` : "N/D";
+
+        card.innerHTML = `
+          <div class="team-top-header">
+            <div>
+              <div class="team-top-title">${t.squadra}</div>
+              <div class="coach-name">All: ${t.allenatore}</div>
+            </div>
+          </div>
+          <div>
+            <div class="team-top-row">
+              <span class="top-category">👑 MVP Squadra:</span>
+              <span class="top-player-val">${mvpStr}</span>
+            </div>
+            <div class="team-top-row">
+              <span class="top-category">⚽ Capocannoniere:</span>
+              <span class="top-player-val">${bomberStr}</span>
+            </div>
+            <div class="team-top-row">
+              <span class="top-category">👟 Assist-man:</span>
+              <span class="top-player-val">${assistStr}</span>
+            </div>
+            <div class="team-top-row">
+              <span class="top-category">🟨 Mister Cartellino:</span>
+              <span class="top-player-val">${badboyStr}</span>
+            </div>
+            <div class="team-top-row">
+              <span class="top-category">💎 Top Affare Low Cost:</span>
+              <span class="top-player-val">${affareStr}</span>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderLeaderboards() {
+      // Marcatori
+      const tbodyMarcatori = document.getElementById('tbody-top-marcatori');
+      tbodyMarcatori.innerHTML = "";
+      data.top_marcatori.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="badge-role ${p.ruolo_classe}">${p.ruolo}</span><b>${p.nome}</b> <span style="font-size:0.78rem; color:var(--text-muted);">(${p.squadra_sa})</span></td>
+          <td style="font-size: 0.85rem; color: var(--text-muted);">${p.squadra_fanta}</td>
+          <td style="text-align: right;"><span class="stat-badge badge-gol">${p.gol} ⚽</span></td>
+        `;
+        tbodyMarcatori.appendChild(tr);
+      });
+
+      // Assist
+      const tbodyAssist = document.getElementById('tbody-top-assist');
+      tbodyAssist.innerHTML = "";
+      data.top_assist.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="badge-role ${p.ruolo_classe}">${p.ruolo}</span><b>${p.nome}</b> <span style="font-size:0.78rem; color:var(--text-muted);">(${p.squadra_sa})</span></td>
+          <td style="font-size: 0.85rem; color: var(--text-muted);">${p.squadra_fanta}</td>
+          <td style="text-align: right;"><span class="stat-badge badge-assist">${p.assist} 👟</span></td>
+        `;
+        tbodyAssist.appendChild(tr);
+      });
+
+      // Cattivi
+      const tbodyCattivi = document.getElementById('tbody-top-cattivi');
+      tbodyCattivi.innerHTML = "";
+      data.top_cattivi.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="badge-role ${p.ruolo_classe}">${p.ruolo}</span><b>${p.nome}</b> <span style="font-size:0.78rem; color:var(--text-muted);">(${p.squadra_sa})</span></td>
+          <td style="font-size: 0.85rem; color: var(--text-muted);">${p.squadra_fanta}</td>
+          <td style="text-align: right;"><span class="stat-badge badge-card">${p.amm} 🟨 ${p.esp ? p.esp + ' 🟥' : ''}</span></td>
+        `;
+        tbodyCattivi.appendChild(tr);
+      });
+    }
+
+    let currentSelectedRound = 2;
+
+    function renderRounds() {
+      const btnContainer = document.getElementById('round-buttons');
+      btnContainer.innerHTML = "";
+      data.giornate.forEach(g => {
+        const btn = document.createElement('button');
+        btn.className = `round-btn ${g.giornata === currentSelectedRound ? 'active' : ''}`;
+        btn.innerText = `Giornata ${g.giornata}`;
+        btn.onclick = () => {
+          currentSelectedRound = g.giornata;
+          document.querySelectorAll('.round-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderRegretsGrid(g.giornata);
+        };
+        btnContainer.appendChild(btn);
+      });
+      renderRegretsGrid(currentSelectedRound);
+    }
+
+    function renderRegretsGrid(roundNum) {
+      const container = document.getElementById('regrets-container');
+      container.innerHTML = "";
+      const g = data.giornate.find(x => x.giornata === roundNum);
+      if (!g) return;
+
+      let allRegrets = [];
+      g.squadre.forEach(s => {
+        s.rimpianti.forEach(r => {
+          allRegrets.push({ ...r, squadra: s.nome });
+        });
+      });
+
+      allRegrets.sort((a, b) => b.fantavoto - a.fantavoto);
+
+      if (allRegrets.length === 0) {
+        container.innerHTML = "<div style='color: var(--text-muted);'>Nessun rimpianto clamoroso per questo turno!</div>";
+        return;
+      }
+
+      allRegrets.forEach(r => {
+        const card = document.createElement('div');
+        card.className = "regret-card";
+        let badgesHtml = "";
+        if (r.gol > 0) badgesHtml += `<span class="stat-badge badge-gol">${r.gol} Gol ⚽</span>`;
+        if (r.assist > 0) badgesHtml += `<span class="stat-badge badge-assist">${r.assist} Assist 👟</span>`;
+        if (r.clean_sheet > 0) badgesHtml += `<span class="stat-badge badge-assist">Clean Sheet 🧤</span>`;
+        if (r.fantavoto >= 7.0 && r.gol === 0 && r.assist === 0) badgesHtml += `<span class="stat-badge badge-fv">Voto Alto ⭐</span>`;
+
+        card.innerHTML = `
+          <div>
+            <div class="regret-card-top">
+              <div>
+                <div class="regret-player-name">
+                  <span class="badge-role ${r.ruolo_classe}">${r.ruolo}</span>
+                  ${r.nome} <span style="font-size: 0.8rem; color: var(--text-muted);">(${r.squadra_serie_a})</span>
+                </div>
+                <div class="regret-team">in panchina con <b>${r.squadra}</b></div>
+              </div>
+              <div class="regret-fv-box">
+                <div class="regret-fv-val">${r.fantavoto}</div>
+                <div class="regret-voto-puro">Voto puro: ${r.voto}</div>
+              </div>
+            </div>
+          </div>
+          <div class="regret-badges">
+            ${badgesHtml}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderModuli() {
+      const tbody = document.getElementById('tbody-moduli');
+      tbody.innerHTML = "";
+      data.moduli.forEach(m => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><b>${m.modulo}</b></td>
+          <td>${m.usato} volte</td>
+          <td><span class="stat-badge badge-fv">${m.media_punti} pt</span></td>
+          <td style="color: var(--accent-green); font-weight: 700;">${m.vittorie}</td>
+          <td style="color: var(--text-muted); font-weight: 700;">${m.pareggi}</td>
+          <td style="color: var(--accent-red); font-weight: 700;">${m.sconfitte}</td>
+          <td><b>${m.win_rate}%</b></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderRose() {
+      const tbody = document.getElementById('tbody-rose');
+      tbody.innerHTML = "";
+      data.rose.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="team-cell">${r.squadra}</td>
+          <td class="coach-name">${r.allenatore}</td>
+          <td>${r.crediti_spesi} / 500</td>
+          <td style="color: var(--accent-green); font-weight: 700;">${r.crediti_residui} cr</td>
+          <td><b>${r.top_player}</b></td>
+          <td><span class="stat-badge badge-fv">${r.top_costo} cr</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function condividiWhatsApp() {
+      const topTeam = data.classifica_rimpianti[0];
+      const wSorted = [...data.classifica_whatif].sort((a, b) => b.diff_punti - a.diff_punti);
+      const unlucky = wSorted[0];
+      const lucky = wSorted[wSorted.length - 1];
+
+      let msg = `🚨 *FANTASTATS: REPORT COMPLETO GIORNATA 2* 🚨\n`;
+      msg += `🏆 *Lega El Figuerao*\n\n`;
+      msg += `👑 *Re dei Rimpianti:* ${topTeam.squadra} (${topTeam.gol_panchina} GOL persi!)\n`;
+      if (unlucky && unlucky.diff_punti > 0) {
+        msg += `💥 *Il più Penalizzato dalla Panchina:* ${unlucky.squadra} (sarebbe a ${unlucky.punti_whatif} pt invece di ${unlucky.punti_reali}!)\n`;
+      }
+      if (lucky && lucky.diff_punti < 0) {
+        msg += `🍀 *Il Baciato dalla Fortuna:* ${lucky.squadra} (+${Math.abs(lucky.diff_punti)} pt guadagnati per errori altrui)\n`;
+      }
+      msg += `\n📊 *CLASSIFICA WHAT-IF (Punti Potenziali):*\n`;
+      data.classifica_whatif.slice(0, 5).forEach((t, i) => {
+        const diffStr = t.diff_punti > 0 ? `(+${t.diff_punti})` : (t.diff_punti < 0 ? `(${t.diff_punti})` : `(=)`);
+        msg += `${i+1}. ${t.squadra}: ${t.punti_whatif} pt ${diffStr}\n`;
+      });
+      msg += `\n👉 Apri la dashboard online per vedere tutti i Top Player, Assist e Cartellini!`;
+
+      navigator.clipboard.writeText(msg).then(() => {
+        const toast = document.getElementById('toast');
+        toast.style.display = 'block';
+        setTimeout(() => { toast.style.display = 'none'; }, 3000);
+      });
+
+      const waUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(msg);
+      window.open(waUrl, '_blank');
+    }
+  </script>
+</body>
+</html>
