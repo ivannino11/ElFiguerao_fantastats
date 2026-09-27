@@ -1,0 +1,1997 @@
+[
+  {
+    "matchDay": 1,
+    "championshipMatchDay": 4,
+    "calculated": true,
+    "matches": [
+      {
+        "tIdH": 19980348,
+        "tIdA": 16765183,
+        "ptH": 68.5,
+        "ptA": 66.5,
+        "standingPtH": 1,
+        "standingPtA": 1,
+        "result": "1-1",
+        "resultSR": "0-0|N"
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 19954095,
+        "ptH": 66.0,
+        "ptA": 67.5,
+        "standingPtH": 1,
+        "standingPtA": 1,
+        "result": "1-1",
+        "resultSR": "0-0|N"
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 16765021,
+        "ptH": 72.0,
+        "ptA": 74.5,
+        "standingPtH": 1,
+        "standingPtA": 1,
+        "result": "2-2",
+        "resultSR": "0-0|N"
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 16766957,
+        "ptH": 71.5,
+        "ptA": 65.5,
+        "standingPtH": 3,
+        "standingPtA": 0,
+        "result": "2-0",
+        "resultSR": "0-0|N"
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 19738700,
+        "ptH": 71.0,
+        "ptA": 79.5,
+        "standingPtH": 0,
+        "standingPtA": 3,
+        "result": "2-3",
+        "resultSR": "0-0|N"
+      }
+    ]
+  },
+  {
+    "matchDay": 2,
+    "championshipMatchDay": 5,
+    "calculated": true,
+    "matches": [
+      {
+        "tIdH": 19954095,
+        "tIdA": 19980348,
+        "ptH": 76.0,
+        "ptA": 73.5,
+        "standingPtH": 3,
+        "standingPtA": 0,
+        "result": "3-2",
+        "resultSR": "0-0|N"
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 16787509,
+        "ptH": 63.5,
+        "ptA": 82.0,
+        "standingPtH": 0,
+        "standingPtA": 3,
+        "result": "0-4",
+        "resultSR": "0-0|N"
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 16769781,
+        "ptH": 71.5,
+        "ptA": 71.5,
+        "standingPtH": 1,
+        "standingPtA": 1,
+        "result": "2-2",
+        "resultSR": "0-0|N"
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 16765239,
+        "ptH": 71.0,
+        "ptA": 79.0,
+        "standingPtH": 0,
+        "standingPtA": 3,
+        "result": "2-3",
+        "resultSR": "0-0|N"
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16778235,
+        "ptH": 72.0,
+        "ptA": 81.0,
+        "standingPtH": 0,
+        "standingPtA": 3,
+        "result": "2-4",
+        "resultSR": "0-0|N"
+      }
+    ]
+  },
+  {
+    "matchDay": 3,
+    "championshipMatchDay": 6,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19980348,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 4,
+    "championshipMatchDay": 7,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19954095,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 5,
+    "championshipMatchDay": 8,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19980348,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19954095,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 6,
+    "championshipMatchDay": 9,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16769781,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 7,
+    "championshipMatchDay": 10,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19980348,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19954095,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 8,
+    "championshipMatchDay": 11,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19980348,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 9,
+    "championshipMatchDay": 12,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19954095,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 10,
+    "championshipMatchDay": 13,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16765183,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19954095,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 11,
+    "championshipMatchDay": 14,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19980348,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 12,
+    "championshipMatchDay": 15,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19738700,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19954095,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 13,
+    "championshipMatchDay": 16,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16765183,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19980348,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 14,
+    "championshipMatchDay": 17,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16769781,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 15,
+    "championshipMatchDay": 18,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16765239,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19954095,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19980348,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 16,
+    "championshipMatchDay": 19,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16778235,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 17,
+    "championshipMatchDay": 20,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16765021,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19954095,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 18,
+    "championshipMatchDay": 21,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16787509,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19980348,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 19,
+    "championshipMatchDay": 22,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19980348,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 20,
+    "championshipMatchDay": 23,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19954095,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 21,
+    "championshipMatchDay": 24,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19980348,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 22,
+    "championshipMatchDay": 25,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19954095,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 23,
+    "championshipMatchDay": 26,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19980348,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19954095,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 24,
+    "championshipMatchDay": 27,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16769781,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 25,
+    "championshipMatchDay": 28,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19980348,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19954095,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 26,
+    "championshipMatchDay": 29,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19980348,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 27,
+    "championshipMatchDay": 30,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19954095,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 28,
+    "championshipMatchDay": 31,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16765183,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19954095,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 29,
+    "championshipMatchDay": 32,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19980348,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 30,
+    "championshipMatchDay": 33,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 19738700,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19954095,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 31,
+    "championshipMatchDay": 34,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16765183,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19980348,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 32,
+    "championshipMatchDay": 35,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16769781,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 33,
+    "championshipMatchDay": 36,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16765239,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16778235,
+        "tIdA": 16765021,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19954095,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19980348,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 34,
+    "championshipMatchDay": 37,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16778235,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16766957,
+        "tIdA": 19954095,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16787509,
+        "tIdA": 16765239,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16769781,
+        "tIdA": 16765183,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765021,
+        "tIdA": 19738700,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  },
+  {
+    "matchDay": 35,
+    "championshipMatchDay": 38,
+    "calculated": false,
+    "matches": [
+      {
+        "tIdH": 16765021,
+        "tIdA": 19980348,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765239,
+        "tIdA": 16778235,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19954095,
+        "tIdA": 16769781,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 19738700,
+        "tIdA": 16766957,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      },
+      {
+        "tIdH": 16765183,
+        "tIdA": 16787509,
+        "ptH": 0.0,
+        "ptA": 0.0,
+        "standingPtH": 0,
+        "standingPtA": 0,
+        "result": "-",
+        "resultSR": ""
+      }
+    ]
+  }
+]
