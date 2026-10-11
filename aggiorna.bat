@@ -21,6 +21,9 @@ if /i not "%BRANCH%"=="test" (
 
 echo.
 echo === 1/4 Allineo il repo con GitHub ===
+REM index.html e i JSON vengono rigenerati/riscaricati a ogni giro:
+REM scarto le copie locali per evitare conflitti con il pull.
+git checkout -- index.html "*.json" 2>nul
 git pull --rebase --autostash origin test
 if errorlevel 1 (
     echo [ERRORE] git pull non riuscito: risolvi i conflitti e riprova.
