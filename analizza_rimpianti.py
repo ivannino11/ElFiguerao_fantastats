@@ -1,6 +1,7 @@
 import json
 import sys
 import pandas as pd
+from fanta_utils import giocatori_entrati, formazione_effettiva, panchina_effettiva, ha_voto
 
 if sys.stdout.encoding.lower() != "utf-8":
     try:
@@ -32,19 +33,9 @@ def analizza_giornata(file_lineup, num_giornata):
         modulo = t.get("mdl", "")
         nmodulo = t.get("nmdl", "")
 
-        # Gestione sostituzioni da stringa swtc
-        # Formato swtc: pid_out;pid_in;...
-        sub_in = set()
-        swtc_str = t.get("swtc") or ""
-        if swtc_str:
-            parts = swtc_str.split(";")
-            # Ogni sostituzione ha blocchi di parametri
-            # es: 4364;5119;1;343;6 dove 5119 è entrato
-            if len(parts) >= 2:
-                try:
-                    sub_in.add(int(parts[1]))
-                except ValueError:
-                    pass
+        # Sostituzioni realmente avvenute: campo ptype ('U' uscito, 'E' entrato).
+        # Gestisce tutte le sostituzioni, non solo la prima. swtc è la regola tattica, non i cambi.
+        sub_in = giocatori_entrati(t)
 
         # Analisi panchinari
         for p in t.get("bench", []):

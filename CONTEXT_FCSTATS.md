@@ -39,3 +39,8 @@ I dati grezzi vengono estratti tramite curl_cffi (impersonate='chrome124' per ag
 1. Costruire DataFrame Pandas strutturati ed esportabili (es. Excel/CSV o report).
 2. Implementare analisi dei Top Player per squadra (chi ha più gol/assist/FM).
 3. Analisi comparativa dei moduli tattici (es. 3-4-3 vs 3-5-2) per rendimento medio punti.
+🔁 Gestione sostituzioni (lineup)
+- Le sostituzioni realmente avvenute si leggono dal campo `ptype` di ogni giocatore: `U` = titolare uscito, `E` = panchinaro entrato.
+- Verifica: `tot = somma(cscr titolari non U) + somma(cscr panchinari E) + somma(tbon)` torna per tutte le squadre/giornate.
+- `swtc` NON è l'elenco dei cambi: è la regola di sostituzione tattica impostata (`out;in;condizione;modulo;soglia`, `0;0;0;0;0` se assente).
+- Le funzioni condivise sono in `fanta_utils.py` (`giocatori_entrati`, `formazione_effettiva`, `panchina_effettiva`, `ha_voto`).

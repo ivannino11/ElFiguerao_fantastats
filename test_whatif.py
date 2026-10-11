@@ -1,5 +1,6 @@
 import json
 import pandas as pd
+from fanta_utils import giocatori_entrati, formazione_effettiva, panchina_effettiva, ha_voto
 
 with open("calendario.json", "r", encoding="utf-8") as f:
     calendario = json.load(f)
@@ -33,24 +34,19 @@ for g in [1, 2]:
         starters = t.get("starts", [])
         bench = t.get("bench", [])
         
-        # Subentrati
-        sub_in = set()
-        swtc_str = t.get("swtc") or ""
-        if swtc_str:
-            parts = swtc_str.split(";")
-            if len(parts) >= 2:
-                try:
-                    sub_in.add(int(parts[1]))
-                except ValueError:
-                    pass
+        # Sostituzioni realmente avvenute: campo ptype ('U' uscito, 'E' entrato).
+        # Gestisce tutte le sostituzioni, non solo la prima. swtc è la regola tattica, non i cambi.
+        sub_in = giocatori_entrati(t)
+        in_campo = formazione_effettiva(t)  # titolari non usciti + entrati
+        fuori = panchina_effettiva(t)        # panchinari rimasti fuori
 
         # Giocatori titolari finali effettivi
         # Un titolare ha cscr valido (se s.v. ed è uscito, è stato sostituito)
         delta_max = 0.0
         # Mappiamo i ruoli
         for role_id, role_code in RUOLI.items():
-            st_role = [p for p in starters if players.get(p["pid"], {}).get("fcrle") == role_id and isinstance(p.get("cscr"), (int, float)) and p.get("cscr") < 50]
-            bn_role = [p for p in bench if p["pid"] not in sub_in and players.get(p["pid"], {}).get("fcrle") == role_id and isinstance(p.get("cscr"), (int, float)) and p.get("cscr") < 50 and p.get("scr") != 56]
+            st_role = [p for p in in_campo if players.get(p["pid"], {}).get("fcrle") == role_id and ha_voto(p)]
+            bn_role = [p for p in fuori if players.get(p["pid"], {}).get("fcrle") == role_id and ha_voto(p)]
             
             st_sorted = sorted(st_role, key=lambda x: x["cscr"]) # peggiori prima
             bn_sorted = sorted(bn_role, key=lambda x: x["cscr"], reverse=True) # migliori prima
