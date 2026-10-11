@@ -4,7 +4,7 @@ chcp 65001 >nul
 REM ============================================================
 REM  aggiorna.bat - Aggiorna la dashboard pubblica El Figuerao
 REM  1. allinea il repo  2. scarica i dati  3. rigenera index.html
-REM  4. commit + push sul branch test (GitHub Pages)
+REM  4. commit + push sul branch main (GitHub Pages)
 REM ============================================================
 cd /d "%~dp0"
 
@@ -13,9 +13,9 @@ set "PAGE_URL=https://ivannino11.github.io/ElFiguerao_fantastats/"
 where python >nul 2>&1 && (set "PY=python") || (set "PY=py")
 
 for /f "delims=" %%b in ('git rev-parse --abbrev-ref HEAD') do set "BRANCH=%%b"
-if /i not "%BRANCH%"=="test" (
-    echo [ERRORE] Sei sul branch "%BRANCH%": GitHub Pages pubblica dal branch "test".
-    echo          Esegui:  git checkout test
+if /i not "%BRANCH%"=="main" (
+    echo [ERRORE] Sei sul branch "%BRANCH%": GitHub Pages pubblica dal branch "main".
+    echo          Esegui:  git fetch origin ^& git checkout main ^& git reset --hard origin/main
     goto :fail
 )
 
@@ -24,7 +24,7 @@ echo === 1/4 Allineo il repo con GitHub ===
 REM index.html e i JSON vengono rigenerati/riscaricati a ogni giro:
 REM scarto le copie locali per evitare conflitti con il pull.
 git checkout -- index.html "*.json" 2>nul
-git pull --rebase --autostash origin test
+git pull --rebase --autostash origin main
 if errorlevel 1 (
     echo [ERRORE] git pull non riuscito: risolvi i conflitti e riprova.
     goto :fail
@@ -61,7 +61,7 @@ for /f "delims=" %%d in ('powershell -NoProfile -Command "Get-Date -Format 'yyyy
 
 git commit -m "Aggiornamento dati: %NGIORNATE% giornate calcolate (%TS%)"
 if errorlevel 1 goto :fail
-git push origin test
+git push origin main
 if errorlevel 1 (
     echo [ERRORE] git push non riuscito.
     goto :fail

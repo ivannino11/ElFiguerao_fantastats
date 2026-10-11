@@ -4,7 +4,7 @@ Statistiche alternative della lega privata di fantacalcio **El Figuerao** (leghe
 
 **Dashboard pubblica:** https://ivannino11.github.io/ElFiguerao_fantastats/
 
-> Il lavoro si fa sul branch **`test`**: è quello pubblicato da GitHub Pages.
+> Il branch principale è **`main`**: è quello pubblicato da GitHub Pages. Le modifiche al codice passano da branch temporanei e Pull Request.
 
 ---
 
@@ -49,7 +49,7 @@ Serve una volta sola.
 
 **Comandi** (dal terminale, nella cartella dove vuoi il progetto):
 ```
-git clone -b test https://github.com/ivannino11/ElFiguerao_fantastats.git
+git clone https://github.com/ivannino11/ElFiguerao_fantastats.git
 cd ElFiguerao_fantastats
 pip install -r requirements.txt
 ```
@@ -110,7 +110,7 @@ Lo script:
 1. allinea la cartella con GitHub (`git pull`)
 2. scarica i dati nuovi (`scarica_dati.py`); se qualcosa va storto si ferma senza pubblicare nulla
 3. rigenera `index.html` (`genera_dashboard.py`)
-4. fa commit e push sul branch `test`; dopo 1-2 minuti la pagina pubblica è aggiornata
+4. fa commit e push sul branch `main`; dopo 1-2 minuti la pagina pubblica è aggiornata
 
 Se non ci sono novità te lo dice e non pubblica niente. Per pubblicare serve il permesso di scrittura sul repo (vedi sotto).
 
@@ -123,11 +123,11 @@ e apri `index.html` con doppio clic.
 
 ### Mac / Linux
 ```
-git pull --rebase --autostash origin test
+git pull --rebase --autostash origin main
 python3 scarica_dati.py && python3 genera_dashboard.py
 git add index.html *.json
 git commit -m "Aggiornamento dati"
-git push origin test
+git push origin main
 ```
 
 ---
@@ -136,19 +136,19 @@ git push origin test
 
 ### Permessi
 - **Collaboratore** (consigliato per chi è nella lega): il proprietario ti aggiunge da *Settings → Collaborators*. Puoi pubblicare con `aggiorna.bat` e creare branch.
-- **Senza permessi**: fai un *Fork*, lavora sulla tua copia e apri una *Pull Request* verso il branch `test`.
+- **Senza permessi**: fai un *Fork*, lavora sulla tua copia e apri una *Pull Request* verso il branch `main`.
 
 ### Flusso di lavoro per modificare il codice
 ```
-git checkout test
-git pull origin test
+git checkout main
+git pull origin main
 git checkout -b nome-modifica            # es. fix-classifica-moduli
 # ... modifica, prova in locale ...
 git add <file modificati>
 git commit -m "Descrizione chiara della modifica"
 git push origin nome-modifica
 ```
-Poi apri una Pull Request da `nome-modifica` verso `test` su GitHub. Il semplice aggiornamento dei dati con `aggiorna.bat` invece va direttamente su `test`.
+Poi apri una Pull Request da `nome-modifica` verso `main` su GitHub. Il semplice aggiornamento dei dati con `aggiorna.bat` invece va direttamente su `main`.
 
 ### Regole
 - **Non modificare `index.html` a mano**: viene rigenerato a ogni aggiornamento. Grafica e contenuti della pagina si cambiano in `genera_dashboard.py`.
@@ -166,7 +166,7 @@ Poi apri una Pull Request da `nome-modifica` verso `test` su GitHub. Il semplice
 | `Token mancante` | Vedi [Il token](#il-token-credenziali) |
 | `Il token è scaduto` / errore `401` | Prendi un token nuovo e sostituiscilo in `.env` |
 | `Your local changes ... would be overwritten by merge` | `git checkout -- index.html` (o il file indicato), poi riprova |
-| `Sei sul branch "main"` | `git checkout test` |
+| `Sei sul branch "test"` (o un altro) | `git fetch origin`, `git checkout main`, `git reset --hard origin/main` (il branch `test` non esiste più) |
 | `git push` rifiutato / permesso negato | Non sei collaboratore: chiedi l'accesso o usa Fork + Pull Request |
 | `python` non riconosciuto | Reinstalla Python spuntando "Add Python to PATH", oppure usa `py` al posto di `python` |
 | La pagina pubblica non cambia | Aspetta 1-2 minuti e ricarica con **Ctrl+F5** |

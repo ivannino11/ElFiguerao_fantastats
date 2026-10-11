@@ -47,9 +47,9 @@ I dati grezzi vengono estratti tramite curl_cffi (impersonate='chrome124' per ag
 - Tutti gli script leggono in automatico ogni `lineup_giornata_X.json` presente; il What-If considera solo i turni calcolati con formazioni disponibili e avvisa se ne manca qualcuno.
 
 🌐 Pubblicazione
-- La dashboard è pubblicata con GitHub Pages dal branch `test` (root): https://ivannino11.github.io/ElFiguerao_fantastats/
+- La dashboard è pubblicata con GitHub Pages dal branch `main` (root): https://ivannino11.github.io/ElFiguerao_fantastats/
 - `index.html` è statico con i dati incorporati: va rigenerato con `genera_dashboard.py` e pushato.
-- `aggiorna.bat` (doppio clic o da terminale) esegue: git pull → scarica_dati.py → genera_dashboard.py → commit e push su `test`. Si ferma senza pubblicare se il download fallisce (es. token 401).
+- `aggiorna.bat` (doppio clic o da terminale) esegue: git pull → scarica_dati.py → genera_dashboard.py → commit e push su `main`. Si ferma senza pubblicare se il download fallisce (es. token 401).
 
 🔐 Credenziali
 - Il token Bearer NON è nel codice: si legge da `FANTA_TOKEN` (variabile d'ambiente) o dal file `.env` locale, escluso da git (modello in `.env.example`).
@@ -57,3 +57,6 @@ I dati grezzi vengono estratti tramite curl_cffi (impersonate='chrome124' per ag
 - `app_key` è la chiave pubblica del frontend web, resta in `fanta_utils.APP_KEY`.
 - Se il token manca e lo script gira in un terminale, `carica_token()` lo chiede e lo salva in `.env` (solo se il testo è un JWT leggibile).
 - Guida per i collaboratori (installazione, token, aggiornamento, flusso PR): `README.md`.
+
+🌿 Branch
+- Dal 12/10/2026 l'unico branch principale è `main` (il vecchio `test` è stato unito ed eliminato). Modifiche al codice: branch temporanei + Pull Request verso `main`.
