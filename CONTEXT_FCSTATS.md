@@ -43,4 +43,5 @@ I dati grezzi vengono estratti tramite curl_cffi (impersonate='chrome124' per ag
 - Le sostituzioni realmente avvenute si leggono dal campo `ptype` di ogni giocatore: `U` = titolare uscito, `E` = panchinaro entrato.
 - Verifica: `tot = somma(cscr titolari non U) + somma(cscr panchinari E) + somma(tbon)` torna per tutte le squadre/giornate.
 - `swtc` NON è l'elenco dei cambi: è la regola di sostituzione tattica impostata (`out;in;condizione;modulo;soglia`, `0;0;0;0;0` se assente).
-- Le funzioni condivise sono in `fanta_utils.py` (`giocatori_entrati`, `formazione_effettiva`, `panchina_effettiva`, `ha_voto`).
+- Le funzioni condivise sono in `fanta_utils.py` (`giocatori_entrati`, `formazione_effettiva`, `panchina_effettiva`, `ha_voto`, `giornate_disponibili`).
+- Tutti gli script leggono in automatico ogni `lineup_giornata_X.json` presente; il What-If considera solo i turni calcolati con formazioni disponibili e avvisa se ne manca qualcuno.

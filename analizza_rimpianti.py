@@ -1,7 +1,7 @@
 import json
 import sys
 import pandas as pd
-from fanta_utils import giocatori_entrati, formazione_effettiva, panchina_effettiva, ha_voto
+from fanta_utils import giocatori_entrati, formazione_effettiva, panchina_effettiva, ha_voto, giornate_disponibili
 
 if sys.stdout.encoding.lower() != "utf-8":
     try:
@@ -80,7 +80,13 @@ def analizza_giornata(file_lineup, num_giornata):
 if __name__ == "__main__":
     tutti_rimpianti = []
     
-    for g, fname in [(1, "lineup_giornata_1.json"), (2, "lineup_giornata_2.json")]:
+    giornate = giornate_disponibili()
+    if not giornate:
+        print("Nessun file lineup_giornata_X.json trovato: lancia prima scarica_dati.py")
+        sys.exit(1)
+    print(f"Giornate analizzate: {', '.join(str(g) for g, _ in giornate)}")
+
+    for g, fname in giornate:
         print(f"\n=======================================================")
         print(f"📊 REPORT RIMPIANTI DA PANCHINA - GIORNATA {g}")
         print(f"=======================================================")

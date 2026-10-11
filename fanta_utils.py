@@ -59,3 +59,17 @@ def bonus_squadra(team_lineup):
         except ValueError:
             pass
     return tot
+
+
+def giornate_disponibili(cartella="."):
+    """Elenco ordinato di (giornata_lega, percorso_file) per ogni lineup_giornata_X.json presente."""
+    import glob
+    import os
+    import re
+
+    giornate = []
+    for path in glob.glob(os.path.join(cartella, "lineup_giornata_*.json")):
+        m = re.search(r"lineup_giornata_(\d+)\.json$", os.path.basename(path))
+        if m:
+            giornate.append((int(m.group(1)), path))
+    return sorted(giornate)

@@ -1,6 +1,6 @@
 import json
 import pandas as pd
-from fanta_utils import giocatori_entrati, formazione_effettiva, panchina_effettiva, ha_voto
+from fanta_utils import giocatori_entrati, formazione_effettiva, panchina_effettiva, ha_voto, giornate_disponibili
 
 with open("calendario.json", "r", encoding="utf-8") as f:
     calendario = json.load(f)
@@ -21,8 +21,14 @@ def calcola_gol(pt):
 # Calcola Best XI per ogni squadra in ogni giornata
 best_scores = {} # (giornata, tid) -> best_tot
 
-for g in [1, 2]:
-    with open(f"lineup_giornata_{g}.json", "r", encoding="utf-8") as f:
+giornate = giornate_disponibili()
+if not giornate:
+    raise SystemExit("Nessun file lineup_giornata_X.json trovato: lancia prima scarica_dati.py")
+giornate_lineup = {g for g, _ in giornate}
+print(f"Giornate con formazioni: {', '.join(str(g) for g in sorted(giornate_lineup))}")
+
+for g, fpath in giornate:
+    with open(fpath, "r", encoding="utf-8") as f:
         lineup = json.load(f)
     for t in lineup:
         tid = t["tid"]
@@ -66,8 +72,15 @@ for (g, tid), b_tot in list(best_scores.items())[:5]:
 classifica_reale = {tid: {"nome": name, "punti": 0, "gf": 0, "gs": 0, "tot": 0.0} for tid, name in teams.items()}
 classifica_whatif = {tid: {"nome": name, "punti": 0, "gf": 0, "gs": 0, "tot": 0.0} for tid, name in teams.items()}
 
-for turno in calendario[:2]:
+# Solo i turni calcolati per cui abbiamo anche le formazioni
+turni_mancanti = [t["matchDay"] for t in calendario if t.get("calculated") and t["matchDay"] not in giornate_lineup]
+if turni_mancanti:
+    print(f"ATTENZIONE: turni calcolati senza file lineup (esclusi, rilancia scarica_dati.py): {turni_mancanti}")
+
+for turno in calendario:
     g = turno["matchDay"]
+    if not turno.get("calculated") or g not in giornate_lineup:
+        continue
     for m in turno.get("matches", []):
         hid, aid = m["tIdH"], m["tIdA"]
         
