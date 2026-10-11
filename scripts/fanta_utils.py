@@ -13,6 +13,22 @@ tattica impostata dall'allenatore (formato ``out;in;condizione;modulo;soglia``,
 ``0;0;0;0;0`` se non impostata) e non va usato per capire chi è entrato.
 """
 
+import os as _os
+
+# ------------------------------------------------------------
+# Percorsi del progetto (indipendenti dalla cartella da cui lanci gli script)
+# ------------------------------------------------------------
+ROOT_DIR = _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))  # cartella del progetto
+DATA_DIR = _os.path.join(ROOT_DIR, "data")   # JSON scaricati dalle API
+SITE_DIR = _os.path.join(ROOT_DIR, "docs")   # pagina pubblicata da GitHub Pages
+ENV_FILE = _os.path.join(ROOT_DIR, ".env")   # token locale (escluso da git)
+
+
+def percorso_dati(nome_file):
+    """Percorso completo di un file dentro data/."""
+    return _os.path.join(DATA_DIR, nome_file)
+
+
 USCITO = "U"
 ENTRATO = "E"
 SENZA_VOTO = (55, 56)  # scr 55/56 = senza voto (s.v.)
@@ -61,7 +77,7 @@ def bonus_squadra(team_lineup):
     return tot
 
 
-def giornate_disponibili(cartella="."):
+def giornate_disponibili(cartella=DATA_DIR):
     """Elenco ordinato di (giornata_lega, percorso_file) per ogni lineup_giornata_X.json presente."""
     import glob
     import os
@@ -79,7 +95,7 @@ def giornate_disponibili(cartella="."):
 # Credenziali API (token Bearer)
 # ------------------------------------------------------------
 # Il token NON va mai scritto nel codice: si legge dalla variabile d'ambiente
-# FANTA_TOKEN oppure dal file .env nella cartella del progetto (escluso da git).
+# FANTA_TOKEN oppure dal file .env nella cartella principale del progetto (escluso da git).
 # Formato del file .env:   FANTA_TOKEN=eyJhbGciOi...
 
 APP_KEY = "ICiELOObd5DF5uJEATi77CRvHiiRuMU0"  # chiave pubblica del frontend web, uguale per tutti
@@ -143,14 +159,19 @@ def carica_token():
     import sys
     from datetime import datetime, timezone
 
-    cartella = os.path.dirname(os.path.abspath(__file__))
-    token = os.environ.get("FANTA_TOKEN") or _leggi_env_file(os.path.join(cartella, ".env")).get("FANTA_TOKEN", "")
+    token = os.environ.get("FANTA_TOKEN") or _leggi_env_file(ENV_FILE).get("FANTA_TOKEN", "")
     token = token.strip()
     if token.lower().startswith("bearer "):
         token = token[7:].strip()
 
     if not token and sys.stdin and sys.stdin.isatty():
-        token = _chiedi_e_salva_token(os.path.join(cartella, ".env"))
+        token = _chiedi_e_salva_token(ENV_FILE)
+
+    if not token and os.environ.get("GITHUB_ACTIONS") == "true":
+        sys.exit(
+            "[ERRORE] Token mancante: aggiungi il secret FANTA_TOKEN in\n"
+            "         Settings > Secrets and variables > Actions > New repository secret"
+        )
 
     if not token:
         sys.exit(
@@ -161,7 +182,7 @@ def carica_token():
 
     scad = _scadenza_jwt(token)
     if scad and scad <= datetime.now(timezone.utc):
-        sys.exit(f"[ERRORE] Il token è scaduto il {scad:%d/%m/%Y}: prendine uno nuovo e aggiorna .env")
+        sys.exit(f"[ERRORE] Il token è scaduto il {scad:%d/%m/%Y}: prendine uno nuovo e aggiorna .env (o il secret FANTA_TOKEN su GitHub)")
     return token
 
 

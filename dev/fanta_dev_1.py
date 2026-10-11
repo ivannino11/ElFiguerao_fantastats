@@ -1,6 +1,8 @@
 import json
 from curl_cffi import requests
-from fanta_utils import headers_api
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "scripts"))
+from fanta_utils import headers_api, percorso_dati
 
 URL = "https://apileague.fantacalcio.it/onboarding/v1/league/competition/teams"
 COMPETITION_ID = "619614"
@@ -19,7 +21,7 @@ try:
 
   if response.status_code == 200:
     data = response.json()
-    output_path = r"C:\Users\ivann\Analisi dati\squadre_fanta.json"
+    output_path = percorso_dati("squadre_fanta.json")
 
     with open(output_path, "w", encoding="utf-8") as f:
       json.dump(data, f, indent=4, ensure_ascii=False)

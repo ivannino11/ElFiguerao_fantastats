@@ -1,7 +1,7 @@
 import json
 import sys
 import pandas as pd
-from fanta_utils import giocatori_entrati, formazione_effettiva, panchina_effettiva, ha_voto, giornate_disponibili
+from fanta_utils import giocatori_entrati, formazione_effettiva, panchina_effettiva, ha_voto, giornate_disponibili, percorso_dati
 
 if sys.stdout.encoding.lower() != "utf-8":
     try:
@@ -10,11 +10,11 @@ if sys.stdout.encoding.lower() != "utf-8":
         pass
 
 # 1. Carica dati
-with open("giocatori_rose.json", "r", encoding="utf-8") as f:
+with open(percorso_dati("giocatori_rose.json"), "r", encoding="utf-8") as f:
     players_data = json.load(f)["players"]
     players = {p["id"]: p for p in players_data}
 
-with open("squadre_fanta.json", "r", encoding="utf-8") as f:
+with open(percorso_dati("squadre_fanta.json"), "r", encoding="utf-8") as f:
     teams_data = json.load(f)["data"]
     teams_map = {t["id"]: t["n"] for t in teams_data}
 

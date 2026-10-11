@@ -1,4 +1,6 @@
 import requests
+import os, sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "scripts"))
 from fanta_utils import headers_api
 
 COMPETITION_ID = "619614"

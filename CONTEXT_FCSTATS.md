@@ -9,10 +9,10 @@ Ambiente di sviluppo: VS Code / Antigravity CLI (agy)
 
 Librerie chiave: curl_cffi (per aggirare Cloudflare con impersonificazione browser chrome120), requests, pandas, beautifulsoup4.
 
-Percorso dati locali: C:\Users\ivann\Analisi dati
+Cartelle: `scripts/` (codice), `data/` (JSON scaricati), `docs/` (pagina pubblicata), `dev/` (esplorazione API). I percorsi sono centralizzati in `scripts/fanta_utils.py` (`ROOT_DIR`, `DATA_DIR`, `SITE_DIR`, `percorso_dati()`).
 
 🔑 Mappa delle API e dei File JSON mappati e scaricati
-I dati grezzi vengono estratti tramite curl_cffi (impersonate='chrome124' per aggirare Cloudflare) e salvati in locale:
+I dati grezzi vengono estratti tramite curl_cffi (impersonate='chrome124' per aggirare Cloudflare) e salvati in `data/`:
 
 - squadre_fanta.json: https://apileague.fantacalcio.it/onboarding/v1/league/competition/teams?competitionId=619614&page=1&pageSize=50
   -> Elenco 10 squadre, crediti, ID calciatori e prezzi d'acquisto.
@@ -47,8 +47,8 @@ I dati grezzi vengono estratti tramite curl_cffi (impersonate='chrome124' per ag
 - Tutti gli script leggono in automatico ogni `lineup_giornata_X.json` presente; il What-If considera solo i turni calcolati con formazioni disponibili e avvisa se ne manca qualcuno.
 
 🌐 Pubblicazione
-- La dashboard è pubblicata con GitHub Pages dal branch `main` (root): https://ivannino11.github.io/ElFiguerao_fantastats/
-- `index.html` è statico con i dati incorporati: va rigenerato con `genera_dashboard.py` e pushato.
+- La dashboard è pubblicata con GitHub Pages dal branch `main`, cartella `docs/`: https://ivannino11.github.io/ElFiguerao_fantastats/
+- `docs/index.html` è statico con i dati incorporati: va rigenerato con `scripts/genera_dashboard.py` e pushato.
 - `aggiorna.bat` (doppio clic o da terminale) esegue: git pull → scarica_dati.py → genera_dashboard.py → commit e push su `main`. Si ferma senza pubblicare se il download fallisce (es. token 401).
 
 🔐 Credenziali
@@ -60,3 +60,4 @@ I dati grezzi vengono estratti tramite curl_cffi (impersonate='chrome124' per ag
 
 🌿 Branch
 - Dal 12/10/2026 l'unico branch principale è `main` (il vecchio `test` è stato unito ed eliminato). Modifiche al codice: branch temporanei + Pull Request verso `main`.
+- Aggiornamento senza PC: workflow GitHub Actions `.github/workflows/aggiorna.yml` (avvio manuale da Actions, anche da GitHub Mobile), token nel secret `FANTA_TOKEN`. `aggiorna.bat` gira da una copia temporanea per non rompersi quando `git pull` lo aggiorna.

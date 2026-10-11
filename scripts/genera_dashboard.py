@@ -2,7 +2,7 @@ import json
 import os
 import glob
 import pandas as pd
-from fanta_utils import giocatori_entrati, formazione_effettiva, panchina_effettiva, ha_voto
+from fanta_utils import giocatori_entrati, formazione_effettiva, panchina_effettiva, ha_voto, giornate_disponibili, percorso_dati, SITE_DIR
 
 RUOLI = {1: "P", 2: "D", 3: "C", 4: "A"}
 RUOLI_CLASSE = {1: "badge-p", 2: "badge-d", 3: "badge-c", 4: "badge-a"}
@@ -14,21 +14,21 @@ def calcola_gol(pt):
 
 def genera_sito():
     # 1. Carica dati
-    with open("giocatori_rose.json", "r", encoding="utf-8") as f:
+    with open(percorso_dati("giocatori_rose.json"), "r", encoding="utf-8") as f:
         players = {p["id"]: p for p in json.load(f)["players"]}
 
-    with open("squadre_fanta.json", "r", encoding="utf-8") as f:
+    with open(percorso_dati("squadre_fanta.json"), "r", encoding="utf-8") as f:
         teams_raw = json.load(f)["data"]
         teams_map = {t["id"]: t for t in teams_raw}
 
-    with open("status.json", "r", encoding="utf-8") as f:
+    with open(percorso_dati("status.json"), "r", encoding="utf-8") as f:
         status_data = json.load(f)
 
-    with open("calendario.json", "r", encoding="utf-8") as f:
+    with open(percorso_dati("calendario.json"), "r", encoding="utf-8") as f:
         calendario = json.load(f)
 
     # 2. Carica tutte le giornate disponibili
-    lineup_files = sorted(glob.glob("lineup_giornata_*.json"), key=lambda x: int(x.split("_")[-1].split(".")[0]))
+    lineup_files = [p for _, p in giornate_disponibili()]
     
     giornate_data = []
     tutti_rimpianti = []
@@ -1494,9 +1494,10 @@ def genera_sito():
 </html>
 """
 
-    with open("index.html", "w", encoding="utf-8") as f:
+    os.makedirs(SITE_DIR, exist_ok=True)
+    with open(os.path.join(SITE_DIR, "index.html"), "w", encoding="utf-8") as f:
         f.write(html_content)
-    print("SUCCESS: Generato index.html aggiornato con What-If e Top Players!")
+    print("SUCCESS: Generato docs/index.html aggiornato con What-If e Top Players!")
 
 if __name__ == "__main__":
     genera_sito()

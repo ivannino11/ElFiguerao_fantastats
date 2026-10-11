@@ -1,14 +1,14 @@
 import json
 import pandas as pd
-from fanta_utils import giocatori_entrati, formazione_effettiva, panchina_effettiva, ha_voto, giornate_disponibili
+from fanta_utils import giocatori_entrati, formazione_effettiva, panchina_effettiva, ha_voto, giornate_disponibili, percorso_dati
 
-with open("calendario.json", "r", encoding="utf-8") as f:
+with open(percorso_dati("calendario.json"), "r", encoding="utf-8") as f:
     calendario = json.load(f)
 
-with open("squadre_fanta.json", "r", encoding="utf-8") as f:
+with open(percorso_dati("squadre_fanta.json"), "r", encoding="utf-8") as f:
     teams = {t["id"]: t["n"] for t in json.load(f)["data"]}
 
-with open("giocatori_rose.json", "r", encoding="utf-8") as f:
+with open(percorso_dati("giocatori_rose.json"), "r", encoding="utf-8") as f:
     players = {p["id"]: p for p in json.load(f)["players"]}
 
 RUOLI = {1: "P", 2: "D", 3: "C", 4: "A"}

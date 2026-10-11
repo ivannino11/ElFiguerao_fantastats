@@ -1,0 +1,61 @@
+# Aggiorna la dashboard senza PC: scarica i dati, rigenera docs/index.html e pubblica su main.
+# Avvio: GitHub (anche app mobile) > Actions > "Aggiorna dashboard" > Run workflow
+# Requisito: secret FANTA_TOKEN (Settings > Secrets and variables > Actions)
+name: Aggiorna dashboard
+
+on:
+  workflow_dispatch:
+  # Per l'aggiornamento automatico togli il commento (orari in UTC):
+  # schedule:
+  #   - cron: "0 7 * * 2"   # ogni martedì alle 9:00 italiane (8:00 con l'ora solare)
+
+permissions:
+  contents: write   # commit e push su main
+  pages: write      # richiesta di ricostruzione di GitHub Pages
+
+concurrency:
+  group: aggiorna-dashboard
+  cancel-in-progress: false
+
+jobs:
+  aggiorna:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Dipendenze
+        run: pip install -r requirements.txt
+
+      - name: Scarica i dati
+        env:
+          FANTA_TOKEN: ${{ secrets.FANTA_TOKEN }}
+        run: python scripts/scarica_dati.py
+
+      - name: Rigenera la dashboard
+        run: python scripts/genera_dashboard.py
+
+      - name: Pubblica
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/index.html data
+          if git diff --cached --quiet; then
+            echo "Nessuna novità: la pagina è già aggiornata." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          N=$(python -c "import json;print(sum(1 for t in json.load(open('data/calendario.json',encoding='utf-8')) if t.get('calculated')))")
+          git commit -m "Aggiornamento dati: $N giornate calcolate ($(TZ=Europe/Rome date '+%Y-%m-%d %H:%M')) [GitHub Actions]"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || echo "Richiesta build Pages non riuscita: partirà comunque dal push."
+          echo "Pubblicato ($N giornate calcolate). La pagina si aggiorna in 1-2 minuti: https://ivannino11.github.io/ElFiguerao_fantastats/" >> "$GITHUB_STEP_SUMMARY"
