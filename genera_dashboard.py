@@ -564,7 +564,7 @@ def genera_sito():
     /* HERO STATS CARDS */
     .hero-grid {{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
       gap: 16px;
       margin-bottom: 25px;
     }}
@@ -609,6 +609,7 @@ def genera_sito():
 
     /* TABLES */
     .table-card {{
+      min-width: 0;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
@@ -628,6 +629,16 @@ def genera_sito():
       font-size: 1.15rem;
       font-family: 'Space Grotesk', sans-serif;
     }}
+    /* Scorrimento orizzontale delle tabelle (mobile) */
+    .table-scroll {{
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      max-width: 100%;
+    }}
+    .table-scroll::-webkit-scrollbar {{ height: 6px; }}
+    .table-scroll::-webkit-scrollbar-thumb {{ background: var(--border); border-radius: 3px; }}
+
     table {{
       width: 100%;
       border-collapse: collapse;
@@ -761,7 +772,7 @@ def genera_sito():
 
     .regrets-grid {{
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
       gap: 16px;
     }}
     .regret-card {{
@@ -817,7 +828,7 @@ def genera_sito():
     /* TEAM CARDS FOR TOP PLAYERS */
     .teams-top-grid {{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
       gap: 20px;
       margin-bottom: 30px;
     }}
@@ -870,7 +881,7 @@ def genera_sito():
     /* LEADERBOARD 3 COLS */
     .leader-grid {{
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
       gap: 20px;
       margin-bottom: 30px;
     }}
@@ -893,7 +904,7 @@ def genera_sito():
 
     @media (max-width: 768px) {{
       .header-content {{ flex-direction: column; align-items: flex-start; }}
-      th, td {{ padding: 12px 14px; }}
+      th, td {{ padding: 12px 14px; white-space: nowrap; }}
     }}
   </style>
 </head>
@@ -961,6 +972,7 @@ def genera_sito():
             <span style="font-size: 0.85rem; color: var(--text-muted);">Cosa sarebbe successo se ogni squadra avesse schierato la sua formazione ottimale?</span>
           </div>
         </div>
+        <div class="table-scroll">
         <table>
           <thead>
             <tr>
@@ -977,6 +989,7 @@ def genera_sito():
           </thead>
           <tbody id="tbody-whatif"></tbody>
         </table>
+        </div>
       </div>
     </div>
 
@@ -987,6 +1000,7 @@ def genera_sito():
           <h2>Classifica Generale Bonus Sprecati in Panchina</h2>
           <span style="font-size: 0.85rem; color: var(--text-muted);">Calciatori con Gol, Assist o Fantavoto &ge; 7.0 rimasti fuori</span>
         </div>
+        <div class="table-scroll">
         <table>
           <thead>
             <tr>
@@ -1000,6 +1014,7 @@ def genera_sito():
           </thead>
           <tbody id="tbody-classifica-rimpianti"></tbody>
         </table>
+        </div>
       </div>
     </div>
 
@@ -1020,6 +1035,7 @@ def genera_sito():
           <div class="table-header">
             <h2>⚽ Classifica Marcatori</h2>
           </div>
+          <div class="table-scroll">
           <table>
             <thead>
               <tr>
@@ -1030,6 +1046,7 @@ def genera_sito():
             </thead>
             <tbody id="tbody-top-marcatori"></tbody>
           </table>
+          </div>
         </div>
 
         <!-- Assist -->
@@ -1037,6 +1054,7 @@ def genera_sito():
           <div class="table-header">
             <h2>👟 Classifica Assist</h2>
           </div>
+          <div class="table-scroll">
           <table>
             <thead>
               <tr>
@@ -1047,6 +1065,7 @@ def genera_sito():
             </thead>
             <tbody id="tbody-top-assist"></tbody>
           </table>
+          </div>
         </div>
 
         <!-- Cartellini -->
@@ -1054,6 +1073,7 @@ def genera_sito():
           <div class="table-header">
             <h2>🟨 Mister Cartellino (Cattivi)</h2>
           </div>
+          <div class="table-scroll">
           <table>
             <thead>
               <tr>
@@ -1064,6 +1084,7 @@ def genera_sito():
             </thead>
             <tbody id="tbody-top-cattivi"></tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>
@@ -1081,6 +1102,7 @@ def genera_sito():
           <h2>Rendimento per Modulo Schierato</h2>
           <span style="font-size: 0.85rem; color: var(--text-muted);">Quale modulo porta più punti alla lunga?</span>
         </div>
+        <div class="table-scroll">
         <table>
           <thead>
             <tr>
@@ -1095,6 +1117,7 @@ def genera_sito():
           </thead>
           <tbody id="tbody-moduli"></tbody>
         </table>
+        </div>
       </div>
     </div>
 
@@ -1105,6 +1128,7 @@ def genera_sito():
           <h2>Situazione Finanziaria e Top Spese Rose</h2>
           <span style="font-size: 0.85rem; color: var(--text-muted);">Crediti spesi e residui (Budget 500)</span>
         </div>
+        <div class="table-scroll">
         <table>
           <thead>
             <tr>
@@ -1118,6 +1142,7 @@ def genera_sito():
           </thead>
           <tbody id="tbody-rose"></tbody>
         </table>
+        </div>
       </div>
     </div>
 
