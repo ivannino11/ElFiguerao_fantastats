@@ -115,6 +115,28 @@ def _scadenza_jwt(token):
         return None
 
 
+def _chiedi_e_salva_token(path_env):
+    """Chiede il token nel terminale e lo salva in .env (solo la prima volta)."""
+    print("\nToken di leghe.fantacalcio.it non trovato.")
+    print("Prendilo dal browser (F12 > Rete > richiesta a apileague > header 'authorization')")
+    print("e incollalo qui sotto (va bene anche con 'Bearer ' davanti). Invio vuoto per annullare.")
+    try:
+        token = input("Token: ").strip()
+    except (EOFError, KeyboardInterrupt):
+        return ""
+    if token.lower().startswith("bearer "):
+        token = token[7:].strip()
+    if not token:
+        return ""
+    if _scadenza_jwt(token) is None:
+        print("[ATTENZIONE] Il testo incollato non sembra un token valido: non lo salvo.")
+        return ""
+    with open(path_env, "w", encoding="utf-8") as f:
+        f.write(f"FANTA_TOKEN={token}\n")
+    print(f"Token salvato in {path_env} (resta solo sul tuo PC, non va su GitHub).\n")
+    return token
+
+
 def carica_token():
     """Restituisce il token Bearer da FANTA_TOKEN o da .env; esce con errore chiaro se manca o è scaduto."""
     import os
@@ -126,6 +148,9 @@ def carica_token():
     token = token.strip()
     if token.lower().startswith("bearer "):
         token = token[7:].strip()
+
+    if not token and sys.stdin and sys.stdin.isatty():
+        token = _chiedi_e_salva_token(os.path.join(cartella, ".env"))
 
     if not token:
         sys.exit(

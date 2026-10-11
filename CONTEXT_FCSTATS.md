@@ -55,3 +55,5 @@ I dati grezzi vengono estratti tramite curl_cffi (impersonate='chrome124' per ag
 - Il token Bearer NON è nel codice: si legge da `FANTA_TOKEN` (variabile d'ambiente) o dal file `.env` locale, escluso da git (modello in `.env.example`).
 - `fanta_utils.carica_token()` / `headers_api()` costruiscono gli header per tutti gli script; se il token manca o è scaduto (controllo su `exp` del JWT) lo script esce con errore.
 - `app_key` è la chiave pubblica del frontend web, resta in `fanta_utils.APP_KEY`.
+- Se il token manca e lo script gira in un terminale, `carica_token()` lo chiede e lo salva in `.env` (solo se il testo è un JWT leggibile).
+- Guida per i collaboratori (installazione, token, aggiornamento, flusso PR): `README.md`.
