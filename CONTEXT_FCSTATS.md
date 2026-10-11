@@ -45,3 +45,8 @@ I dati grezzi vengono estratti tramite curl_cffi (impersonate='chrome124' per ag
 - `swtc` NON è l'elenco dei cambi: è la regola di sostituzione tattica impostata (`out;in;condizione;modulo;soglia`, `0;0;0;0;0` se assente).
 - Le funzioni condivise sono in `fanta_utils.py` (`giocatori_entrati`, `formazione_effettiva`, `panchina_effettiva`, `ha_voto`, `giornate_disponibili`).
 - Tutti gli script leggono in automatico ogni `lineup_giornata_X.json` presente; il What-If considera solo i turni calcolati con formazioni disponibili e avvisa se ne manca qualcuno.
+
+🌐 Pubblicazione
+- La dashboard è pubblicata con GitHub Pages dal branch `test` (root): https://ivannino11.github.io/ElFiguerao_fantastats/
+- `index.html` è statico con i dati incorporati: va rigenerato con `genera_dashboard.py` e pushato.
+- `aggiorna.bat` (doppio clic o da terminale) esegue: git pull → scarica_dati.py → genera_dashboard.py → commit e push su `test`. Si ferma senza pubblicare se il download fallisce (es. token 401).

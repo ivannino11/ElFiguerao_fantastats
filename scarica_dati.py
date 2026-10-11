@@ -28,6 +28,8 @@ HEADERS = {
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
 }
 
+ERRORI = []  # download falliti: se non vuota lo script esce con codice 1
+
 def fetch_json(url, desc=""):
     for imp in ["chrome124", "chrome119"]:
         for attempt in range(3):
@@ -37,10 +39,12 @@ def fetch_json(url, desc=""):
                     return r.json()
                 elif r.status_code == 401:
                     print(f"Errore 401 (Token scaduto o non valido) su {desc}")
+                    ERRORI.append(f"{desc}: 401 token scaduto o non valido")
                     return None
             except Exception as e:
                 time.sleep(1)
     print(f"Impossibile scaricare: {desc}")
+    ERRORI.append(f"{desc}: download non riuscito")
     return None
 
 def scarica_tutto():
@@ -93,7 +97,13 @@ def scarica_tutto():
                         json.dump(data_lineup, f, indent=2, ensure_ascii=False)
                     print(f"    [OK] Salvato {filename}")
 
+    if ERRORI:
+        print("\nDownload NON completato, errori:")
+        for e in ERRORI:
+            print(f"  - {e}")
+        return False
     print("\nDownload completato con successo!")
+    return True
 
 if __name__ == "__main__":
-    scarica_tutto()
+    sys.exit(0 if scarica_tutto() else 1)
