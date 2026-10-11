@@ -35,7 +35,7 @@ echo === 2/4 Scarico i dati da leghe.fantacalcio.it ===
 %PY% scarica_dati.py
 if errorlevel 1 (
     echo [ERRORE] Download non riuscito: nulla e' stato pubblicato.
-    echo          Se l'errore e' 401, aggiorna il token Bearer.
+    echo          Se manca il token o e' scaduto (401), aggiorna FANTA_TOKEN nel file .env
     goto :fail
 )
 

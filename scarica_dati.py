@@ -1,5 +1,4 @@
 import json
-import re
 import sys
 import time
 from curl_cffi import requests
@@ -10,23 +9,12 @@ if sys.stdout.encoding.lower() != "utf-8":
     except Exception:
         pass
 
-# Estrai token autenticato
-with open("fanta_dev_1.py", "r", encoding="utf-8") as f:
-    m = re.search(r'"authorization":\s*"Bearer ([^"]+)"', f.read())
-    TOKEN = m.group(1).strip()
+from fanta_utils import headers_api
 
 COMPETITION_ID = "619614"
 LEAGUE_ID = "3595294"
 
-HEADERS = {
-    "accept": "application/json, text/plain, */*",
-    "accept-language": "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7",
-    "app_key": "ICiELOObd5DF5uJEATi77CRvHiiRuMU0",
-    "authorization": f"Bearer {TOKEN}",
-    "origin": "https://leghe.fantacalcio.it",
-    "referer": "https://leghe.fantacalcio.it/",
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-}
+HEADERS = headers_api()  # token letto da .env / FANTA_TOKEN
 
 ERRORI = []  # download falliti: se non vuota lo script esce con codice 1
 

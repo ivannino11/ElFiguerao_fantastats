@@ -1,18 +1,11 @@
 import json
 from curl_cffi import requests
+from fanta_utils import headers_api
 
 URL = "https://apileague.fantacalcio.it/onboarding/v1/league/competition/teams"
 COMPETITION_ID = "619614"
 
-headers = {
-    "accept": "application/json, text/plain, */*",
-    "accept-language": "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7",
-    "app_key": "ICiELOObd5DF5uJEATi77CRvHiiRuMU0",
-    "authorization": "Bearer ***RIMOSSO***",
-    "origin": "https://leghe.fantacalcio.it",
-    "referer": "https://leghe.fantacalcio.it/",
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-}
+headers = headers_api()  # token letto da .env / FANTA_TOKEN
 
 PARAMS = {"page": 1, "pageSize": 50, "competitionId": COMPETITION_ID}
 

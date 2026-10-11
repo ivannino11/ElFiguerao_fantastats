@@ -73,3 +73,81 @@ def giornate_disponibili(cartella="."):
         if m:
             giornate.append((int(m.group(1)), path))
     return sorted(giornate)
+
+
+# ------------------------------------------------------------
+# Credenziali API (token Bearer)
+# ------------------------------------------------------------
+# Il token NON va mai scritto nel codice: si legge dalla variabile d'ambiente
+# FANTA_TOKEN oppure dal file .env nella cartella del progetto (escluso da git).
+# Formato del file .env:   FANTA_TOKEN=eyJhbGciOi...
+
+APP_KEY = "ICiELOObd5DF5uJEATi77CRvHiiRuMU0"  # chiave pubblica del frontend web, uguale per tutti
+
+
+def _leggi_env_file(path):
+    valori = {}
+    try:
+        with open(path, "r", encoding="utf-8-sig") as f:
+            for riga in f:
+                riga = riga.strip()
+                if not riga or riga.startswith("#") or "=" not in riga:
+                    continue
+                k, v = riga.split("=", 1)
+                valori[k.strip()] = v.strip().strip('"').strip("'")
+    except FileNotFoundError:
+        pass
+    return valori
+
+
+def _scadenza_jwt(token):
+    """Data di scadenza (UTC) del JWT, senza verificarne la firma. None se non leggibile."""
+    import base64
+    import json
+    from datetime import datetime, timezone
+
+    try:
+        payload = token.split(".")[1]
+        payload += "=" * (-len(payload) % 4)
+        exp = json.loads(base64.urlsafe_b64decode(payload))["exp"]
+        return datetime.fromtimestamp(exp, tz=timezone.utc)
+    except Exception:
+        return None
+
+
+def carica_token():
+    """Restituisce il token Bearer da FANTA_TOKEN o da .env; esce con errore chiaro se manca o è scaduto."""
+    import os
+    import sys
+    from datetime import datetime, timezone
+
+    cartella = os.path.dirname(os.path.abspath(__file__))
+    token = os.environ.get("FANTA_TOKEN") or _leggi_env_file(os.path.join(cartella, ".env")).get("FANTA_TOKEN", "")
+    token = token.strip()
+    if token.lower().startswith("bearer "):
+        token = token[7:].strip()
+
+    if not token:
+        sys.exit(
+            "[ERRORE] Token mancante. Crea il file .env nella cartella del progetto con la riga:\n"
+            "         FANTA_TOKEN=<il tuo token Bearer di leghe.fantacalcio.it>\n"
+            "         (vedi .env.example)"
+        )
+
+    scad = _scadenza_jwt(token)
+    if scad and scad <= datetime.now(timezone.utc):
+        sys.exit(f"[ERRORE] Il token è scaduto il {scad:%d/%m/%Y}: prendine uno nuovo e aggiorna .env")
+    return token
+
+
+def headers_api(token=None):
+    """Header HTTP per le API apileague.fantacalcio.it."""
+    return {
+        "accept": "application/json, text/plain, */*",
+        "accept-language": "it-IT,it;q=0.9,en-US;q=0.8,en;q=0.7",
+        "app_key": APP_KEY,
+        "authorization": f"Bearer {token or carica_token()}",
+        "origin": "https://leghe.fantacalcio.it",
+        "referer": "https://leghe.fantacalcio.it/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    }

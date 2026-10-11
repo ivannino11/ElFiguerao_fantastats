@@ -50,3 +50,8 @@ I dati grezzi vengono estratti tramite curl_cffi (impersonate='chrome124' per ag
 - La dashboard è pubblicata con GitHub Pages dal branch `test` (root): https://ivannino11.github.io/ElFiguerao_fantastats/
 - `index.html` è statico con i dati incorporati: va rigenerato con `genera_dashboard.py` e pushato.
 - `aggiorna.bat` (doppio clic o da terminale) esegue: git pull → scarica_dati.py → genera_dashboard.py → commit e push su `test`. Si ferma senza pubblicare se il download fallisce (es. token 401).
+
+🔐 Credenziali
+- Il token Bearer NON è nel codice: si legge da `FANTA_TOKEN` (variabile d'ambiente) o dal file `.env` locale, escluso da git (modello in `.env.example`).
+- `fanta_utils.carica_token()` / `headers_api()` costruiscono gli header per tutti gli script; se il token manca o è scaduto (controllo su `exp` del JWT) lo script esce con errore.
+- `app_key` è la chiave pubblica del frontend web, resta in `fanta_utils.APP_KEY`.
