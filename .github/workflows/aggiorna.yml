@@ -39,8 +39,44 @@ jobs:
           FANTA_TOKEN: ${{ secrets.FANTA_TOKEN }}
         run: python scripts/scarica_dati.py
 
+      - name: Correggi badge giornata nel generatore
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import ast
+          p = Path('scripts/genera_dashboard.py')
+          source = p.read_text(encoding='utf-8')
+          old = 'Giornata 2 Calcolata'
+          new = "Giornata {max((int(t['matchDay']) for t in calendario if t.get('calculated')), default=0)} Calcolata"
+          if old in source:
+              if source.count(old) != 1:
+                  raise SystemExit('Badge non univoco: correzione interrotta.')
+              updated = source.replace(old, new)
+              ast.parse(updated)
+              p.write_text(updated, encoding='utf-8')
+              print('Generatore corretto: badge ricavato dal calendario.')
+          elif new in source:
+              print('Generatore già corretto.')
+          else:
+              raise SystemExit('Badge atteso non trovato: controllare il generatore.')
+          PY
+
       - name: Rigenera la dashboard
         run: python scripts/genera_dashboard.py
+
+      - name: Verifica badge generato
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          calendario = json.loads(Path('data/calendario.json').read_text(encoding='utf-8'))
+          ultima = max((int(t['matchDay']) for t in calendario if t.get('calculated')), default=0)
+          html = Path('docs/index.html').read_text(encoding='utf-8')
+          expected = f'<span class="badge-status">Giornata {ultima} Calcolata</span>'
+          if expected not in html:
+              raise SystemExit('Badge generato non coerente con il calendario.')
+          print(f'Badge verificato: giornata {ultima}.')
+          PY
 
       - name: Pubblica
         env:
@@ -48,7 +84,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/index.html data
+          git add scripts/genera_dashboard.py docs/index.html data
           if git diff --cached --quiet; then
             echo "Nessuna novità: la pagina è già aggiornata." | tee -a "$GITHUB_STEP_SUMMARY"
             exit 0
@@ -57,5 +93,5 @@ jobs:
           git commit -m "Aggiornamento dati: $N giornate calcolate ($(TZ=Europe/Rome date '+%Y-%m-%d %H:%M')) [GitHub Actions]"
           git pull --rebase origin main
           git push origin HEAD:main
-          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null || echo "Richiesta build Pages non riuscita: partirà comunque dal push."
-          echo "Pubblicato ($N giornate calcolate). La pagina si aggiorna in 1-2 minuti: https://ivannino11.github.io/ElFiguerao_fantastats/" >> "$GITHUB_STEP_SUMMARY"
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" >/dev/null
+          echo "Dati e dashboard salvati ($N giornate calcolate). Richiesta build Pages inviata: https://ivannino11.github.io/ElFiguerao_fantastats/" >> "$GITHUB_STEP_SUMMARY"
