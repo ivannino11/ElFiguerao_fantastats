@@ -1400,7 +1400,7 @@ def genera_sito():
       }});
     }}
 
-    let currentSelectedRound = 2;
+    let currentSelectedRound = Math.max(...data.giornate.map(g => g.giornata));
 
     function renderRounds() {{
       const btnContainer = document.getElementById('round-buttons');
