@@ -109,6 +109,26 @@ def genera_sito():
             
             best_scores[(g_num, tid)] = round(tot_punti + delta_max, 1)
 
+            # Giocatori che hanno preso punti (titolari non usciti + entrati), per la Top 10 di giornata
+            in_campo_squadra = []
+            for p in in_campo:
+                if not ha_voto(p):
+                    continue
+                pinfo = players.get(p["pid"], {})
+                b = (p.get("b") or "").split(";")
+                iv = lambda i: int(b[i]) if len(b) > i and b[i] else 0
+                in_campo_squadra.append({
+                    "nome": pinfo.get("name", f"ID {p['pid']}"),
+                    "squadra_serie_a": pinfo.get("stnme", ""),
+                    "ruolo": RUOLI.get(pinfo.get("fcrle"), "?"),
+                    "ruolo_classe": RUOLI_CLASSE.get(pinfo.get("fcrle"), "badge-c"),
+                    "voto": p.get("scr"),
+                    "fantavoto": p.get("cscr"),
+                    "gol": iv(2) + iv(6),
+                    "assist": iv(12) + iv(13),
+                    "entrato": p.get("ptype") == "E"
+                })
+
             # Panchina e Rimpianti
             rimpianti_squadra = []
             for p in bench:
@@ -155,7 +175,8 @@ def genera_sito():
                 "best_tot": best_scores[(g_num, tid)],
                 "modulo": modulo,
                 "punti_gara": punti_gara,
-                "rimpianti": rimpianti_squadra
+                "rimpianti": rimpianti_squadra,
+                "in_campo": in_campo_squadra
             })
 
         giornate_data.append(giornata_obj)
@@ -1092,7 +1113,36 @@ def genera_sito():
     <!-- TAB 5: DETTAGLIO GIORNATE -->
     <div id="tab-giornate" class="tab-pane">
       <div class="round-selector" id="round-buttons"></div>
-      <div class="regrets-grid" id="regrets-container"></div>
+      <div class="round-selector" id="round-subtabs">
+        <button class="round-btn subtab-btn active" data-sub="top">🌟 Top 10 in campo</button>
+        <button class="round-btn subtab-btn" data-sub="panchina">🪑 Panchinari</button>
+      </div>
+      <div id="sub-top">
+        <div class="table-card">
+          <div class="table-header">
+            <h2>Top 10 della giornata</h2>
+            <span style="font-size: 0.85rem; color: var(--text-muted);">Solo giocatori schierati che hanno preso punti (titolari e subentrati), esclusi i panchinari</span>
+          </div>
+          <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 50px;">Pos</th>
+                <th>Giocatore</th>
+                <th>Fantasquadra</th>
+                <th>Voto</th>
+                <th>Fantavoto</th>
+                <th>Bonus</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-top10-giornata"></tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+      <div id="sub-panchina" style="display: none;">
+        <div class="regrets-grid" id="regrets-container"></div>
+      </div>
     </div>
 
     <!-- TAB 6: MODULI TATTICI -->
@@ -1364,10 +1414,44 @@ def genera_sito():
           document.querySelectorAll('.round-btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           renderRegretsGrid(g.giornata);
+          renderTop10Giornata(g.giornata);
         }};
         btnContainer.appendChild(btn);
       }});
       renderRegretsGrid(currentSelectedRound);
+      renderTop10Giornata(currentSelectedRound);
+      document.querySelectorAll('.subtab-btn').forEach(b => {{
+        b.onclick = () => {{
+          document.querySelectorAll('.subtab-btn').forEach(x => x.classList.remove('active'));
+          b.classList.add('active');
+          document.getElementById('sub-top').style.display = b.dataset.sub === 'top' ? '' : 'none';
+          document.getElementById('sub-panchina').style.display = b.dataset.sub === 'panchina' ? '' : 'none';
+        }};
+      }});
+    }}
+
+    function renderTop10Giornata(roundNum) {{
+      const tbody = document.getElementById('tbody-top10-giornata');
+      tbody.innerHTML = "";
+      const g = data.giornate.find(x => x.giornata === roundNum);
+      if (!g) return;
+      let all = [];
+      g.squadre.forEach(s => (s.in_campo || []).forEach(p => all.push({{ ...p, squadra: s.nome }})));
+      all.sort((a, b) => b.fantavoto - a.fantavoto || b.voto - a.voto);
+      all.slice(0, 10).forEach((p, i) => {{
+        let bonus = "";
+        if (p.gol > 0) bonus += `<span class="stat-badge badge-gol">${{p.gol}} Gol ⚽</span> `;
+        if (p.assist > 0) bonus += `<span class="stat-badge badge-assist">${{p.assist}} Assist 👟</span>`;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${{i + 1}}</td>
+          <td><span class="badge-role ${{p.ruolo_classe}}">${{p.ruolo}}</span> <b>${{p.nome}}</b> <span style="font-size: 0.8rem; color: var(--text-muted);">(${{p.squadra_serie_a}})</span>${{p.entrato ? ' <span style="font-size: 0.75rem; color: var(--text-muted);">↑ subentrato</span>' : ''}}</td>
+          <td>${{p.squadra}}</td>
+          <td>${{p.voto}}</td>
+          <td><b>${{p.fantavoto}}</b></td>
+          <td>${{bonus || '-'}}</td>`;
+        tbody.appendChild(tr);
+      }});
     }}
 
     function renderRegretsGrid(roundNum) {{
