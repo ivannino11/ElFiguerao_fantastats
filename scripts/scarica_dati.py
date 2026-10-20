@@ -37,6 +37,7 @@ import re
 import sys
 import time
 from datetime import datetime, timezone
+import gzip
 import urllib.error
 import urllib.request
 from urllib.parse import urlsplit
@@ -60,7 +61,7 @@ BASE = "https://apileague.fantacalcio.it"
 WARMUP_URL = "https://leghe.fantacalcio.it/"
 
 IN_ACTIONS = os.environ.get("GITHUB_ACTIONS") == "true"
-MAX_RETRIES = int(os.environ.get("FANTA_MAX_RETRIES", "3"))
+MAX_RETRIES = int(os.environ.get("FANTA_MAX_RETRIES", "4"))
 WARMUP = os.environ.get("FANTA_WARMUP", "0") == "1"
 DIAGNOSE = os.environ.get("FANTA_DIAGNOSE", "0") == "1"
 PROFILES = [p.strip() for p in os.environ.get("FANTA_IMPERSONATE", "chrome,chrome146,safari184").split(",") if p.strip()]
@@ -245,8 +246,9 @@ class Risposta:
 class SessioneUrllib:
     """Standard-library client: same headers as headers_api(), no TLS impersonation."""
 
-    def __init__(self, headers, proxy=None, timeout=20):
+    def __init__(self, headers, proxy=None, timeout=60):
         self.headers = dict(headers)
+        self.headers.setdefault("accept-encoding", "gzip")  # players JSON is large: compress it
         self.timeout = timeout
         handlers = []
         if proxy:
@@ -261,10 +263,15 @@ class SessioneUrllib:
         req = urllib.request.Request(url, headers=h, method="GET")
         try:
             with self.opener.open(req, timeout=timeout or self.timeout) as resp:
-                return Risposta(resp.status, dict(resp.headers.items()), resp.read())
+                body = resp.read()
+                if (resp.headers.get("Content-Encoding") or "").lower() == "gzip":
+                    body = gzip.decompress(body)
+                return Risposta(resp.status, dict(resp.headers.items()), body)
         except urllib.error.HTTPError as e:  # 4xx/5xx still carry headers and body
             try:
                 body = e.read()
+                if (e.headers.get("Content-Encoding") or "").lower() == "gzip":
+                    body = gzip.decompress(body)
             except Exception:
                 body = b""
             return Risposta(e.code, dict(e.headers.items()) if e.headers else {}, body)
@@ -372,6 +379,7 @@ class Client:
                     r = self.session.get(url)
                 except Exception as e:
                     ultimo = f"errore di rete ({type(e).__name__}): {_redact(str(e))[:200]}"
+                    print(f"    [rete] {desc}: tentativo {tentativo + 1}/{MAX_RETRIES} con {self.profilo}: {ultimo}")
                     time.sleep(self._attesa(None, tentativo))
                     continue
 
@@ -400,14 +408,12 @@ class Client:
                 break  # edge_challenge / edge_block / forbidden -> change client, don't retry same one
 
             # edge block, or network errors with no HTTP answer: try the next client
-            if last_kind in ("edge_challenge", "edge_block", "forbidden") or (r is None and last_kind is None):
-                if last_kind:
-                    controlla_ip_uscita(self.session)
+            if last_kind in ("edge_challenge", "edge_block", "forbidden"):
+                controlla_ip_uscita(self.session)
                 if self.ruota():
                     time.sleep(random.uniform(1, 3))
                     continue
-                if last_kind:
-                    self.stop_reason = "edge"
+                self.stop_reason = "edge"
             elif last_kind == "rate_limit":
                 self.stop_reason = "rate"
             break
