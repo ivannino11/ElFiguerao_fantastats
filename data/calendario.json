@@ -173,57 +173,57 @@
   {
     "matchDay": 4,
     "championshipMatchDay": 7,
-    "calculated": false,
+    "calculated": true,
     "matches": [
       {
         "tIdH": 19954095,
         "tIdA": 16765183,
-        "ptH": 0.0,
-        "ptA": 0.0,
-        "standingPtH": 0,
-        "standingPtA": 0,
-        "result": "-",
-        "resultSR": ""
+        "ptH": 62.5,
+        "ptA": 60.5,
+        "standingPtH": 1,
+        "standingPtA": 1,
+        "result": "0-0",
+        "resultSR": "0-0|N"
       },
       {
         "tIdH": 16769781,
         "tIdA": 16778235,
-        "ptH": 0.0,
-        "ptA": 0.0,
+        "ptH": 58.5,
+        "ptA": 85.0,
         "standingPtH": 0,
-        "standingPtA": 0,
-        "result": "-",
-        "resultSR": ""
+        "standingPtA": 3,
+        "result": "0-5",
+        "resultSR": "0-0|N"
       },
       {
         "tIdH": 16766957,
         "tIdA": 19980348,
-        "ptH": 0.0,
-        "ptA": 0.0,
-        "standingPtH": 0,
+        "ptH": 74.5,
+        "ptA": 62.0,
+        "standingPtH": 3,
         "standingPtA": 0,
-        "result": "-",
-        "resultSR": ""
+        "result": "2-0",
+        "resultSR": "0-0|N"
       },
       {
         "tIdH": 16765021,
         "tIdA": 16787509,
-        "ptH": 0.0,
-        "ptA": 0.0,
-        "standingPtH": 0,
+        "ptH": 75.5,
+        "ptA": 70.0,
+        "standingPtH": 3,
         "standingPtA": 0,
-        "result": "-",
-        "resultSR": ""
+        "result": "2-1",
+        "resultSR": "0-0|N"
       },
       {
         "tIdH": 19738700,
         "tIdA": 16765239,
-        "ptH": 0.0,
-        "ptA": 0.0,
+        "ptH": 71.0,
+        "ptA": 87.5,
         "standingPtH": 0,
-        "standingPtA": 0,
-        "result": "-",
-        "resultSR": ""
+        "standingPtA": 3,
+        "result": "2-6",
+        "resultSR": "0-0|N"
       }
     ]
   },
