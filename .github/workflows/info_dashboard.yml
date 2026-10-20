@@ -1,0 +1,45 @@
+name: Installa spiegazioni dashboard
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/installa_info.py
+      - .github/workflows/info_dashboard.yml
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: aggiorna-dashboard
+  cancel-in-progress: false
+jobs:
+  installa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Installa info senza scaricare dati
+        run: python scripts/installa_info.py
+      - name: Verifica sintassi generatore
+        run: python -m py_compile scripts/genera_dashboard.py
+      - name: Salva pagina e generatore
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add scripts/genera_dashboard.py docs/index.html
+          if git diff --cached --quiet; then
+            echo "Spiegazioni già installate."
+            exit 0
+          fi
+          git commit -m "Aggiungi pop-up informativi alla dashboard"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          gh api -X POST "repos/${{ github.repository }}/pages/builds"
