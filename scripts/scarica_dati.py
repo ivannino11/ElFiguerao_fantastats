@@ -4,8 +4,9 @@ scarica_dati.py - Download dati della lega El Figuerao (apileague.fantacalcio.it
 Hardened version for GitHub Actions:
   * classifies every non-200 response (token, origin 403, CDN/WAF challenge or block (CloudFront/AWS WAF, Cloudflare), rate limit)
   * prints a sanitized diagnostic for each failure (never the token or proxy credentials)
-  * reuses one curl_cffi Session (cookies + connection), optional cookie warm-up
-  * keeps TLS fingerprint and User-Agent consistent (no hardcoded UA unless forced)
+  * primary client: Python standard library (urllib) with the headers of fanta_utils.headers_api()
+    (verified 200 where the curl_cffi session got 403 JSON "FAIL: Request failed")
+  * fallback only on CDN/WAF block: curl_cffi browser profiles (FANTA_IMPERSONATE)
   * honors Retry-After / 429 with exponential backoff + jitter
   * rotates browser profile and (optionally) proxy only when the edge blocks the runner
   * circuit breaker: stops hammering the API once auth or edge block is certain
@@ -15,9 +16,10 @@ Environment variables
   FANTA_TOKEN         Bearer token (required, read by fanta_utils.carica_token)
   FANTA_PROXY         optional: one proxy URL or a comma-separated list
                       (http://user:pass@host:port, socks5h://host:port). Empty = direct.
-  FANTA_IMPERSONATE   curl_cffi profiles, comma-separated (default: chrome,chrome146,safari184)
-  FANTA_USER_AGENT    optional UA override. Default: the UA bundled with the profile.
-  FANTA_WARMUP        1 = GET leghe.fantacalcio.it first to collect cookies (default 1)
+  FANTA_IMPERSONATE   curl_cffi fallback profiles, comma-separated (default: chrome,chrome146,safari184)
+                      empty string = no curl_cffi fallback
+  FANTA_USER_AGENT    optional UA override (default: the UA in fanta_utils.headers_api)
+  FANTA_WARMUP        curl_cffi fallback only: GET leghe.fantacalcio.it first (default 0)
   FANTA_MAX_RETRIES   attempts per profile/proxy combination (default 3)
   FANTA_DIAGNOSE      1 = always log egress IP and GitHub Actions range check (default 0)
 
@@ -35,9 +37,9 @@ import re
 import sys
 import time
 from datetime import datetime, timezone
+import urllib.error
+import urllib.request
 from urllib.parse import urlsplit
-
-from curl_cffi import requests
 
 if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
     try:
@@ -59,9 +61,10 @@ WARMUP_URL = "https://leghe.fantacalcio.it/"
 
 IN_ACTIONS = os.environ.get("GITHUB_ACTIONS") == "true"
 MAX_RETRIES = int(os.environ.get("FANTA_MAX_RETRIES", "3"))
-WARMUP = os.environ.get("FANTA_WARMUP", "1") == "1"
+WARMUP = os.environ.get("FANTA_WARMUP", "0") == "1"
 DIAGNOSE = os.environ.get("FANTA_DIAGNOSE", "0") == "1"
 PROFILES = [p.strip() for p in os.environ.get("FANTA_IMPERSONATE", "chrome,chrome146,safari184").split(",") if p.strip()]
+BACKENDS = ["urllib"] + PROFILES  # urllib first; curl_cffi profiles only if the edge blocks urllib
 PROXIES = [p.strip() for p in os.environ.get("FANTA_PROXY", "").split(",") if p.strip()] or [None]
 REPORT_PATH = os.path.join(os.environ.get("RUNNER_TEMP", ROOT_DIR), "diagnostica_download.json")
 
@@ -98,9 +101,6 @@ BASE_HEADERS = headers_api()  # token from FANTA_TOKEN / .env (exits early if mi
 TOKEN = BASE_HEADERS.get("authorization", "")[7:]
 _mask(TOKEN)
 
-# A hardcoded Chrome/124 UA sent with a different TLS profile (e.g. chrome119) is a classic
-# bot signal. Let curl_cffi send the UA that matches the impersonated browser unless forced.
-BASE_HEADERS.pop("user-agent", None)
 if os.environ.get("FANTA_USER_AGENT"):
     BASE_HEADERS["user-agent"] = os.environ["FANTA_USER_AGENT"]
 
@@ -224,11 +224,88 @@ def controlla_ip_uscita(session):
 
 
 # ----------------------------------------------------------------------------
-# HTTP client with session reuse, rotation and circuit breaker
+# HTTP backends
+# ----------------------------------------------------------------------------
+class Risposta:
+    """Minimal response object shared by the urllib and curl_cffi backends."""
+
+    def __init__(self, status_code, headers, content):
+        self.status_code = status_code
+        self.headers = headers
+        self.content = content or b""
+
+    @property
+    def text(self):
+        return self.content.decode("utf-8", errors="replace")
+
+    def json(self):
+        return json.loads(self.text)
+
+
+class SessioneUrllib:
+    """Standard-library client: same headers as headers_api(), no TLS impersonation."""
+
+    def __init__(self, headers, proxy=None, timeout=20):
+        self.headers = dict(headers)
+        self.timeout = timeout
+        handlers = []
+        if proxy:
+            if not proxy.lower().startswith(("http://", "https://")):
+                raise ValueError("urllib supporta solo proxy http(s)")
+            handlers.append(urllib.request.ProxyHandler({"http": proxy, "https": proxy}))
+        self.opener = urllib.request.build_opener(*handlers)
+
+    def get(self, url, headers=None, timeout=None):
+        h = dict(self.headers)
+        h.update(headers or {})
+        req = urllib.request.Request(url, headers=h, method="GET")
+        try:
+            with self.opener.open(req, timeout=timeout or self.timeout) as resp:
+                return Risposta(resp.status, dict(resp.headers.items()), resp.read())
+        except urllib.error.HTTPError as e:  # 4xx/5xx still carry headers and body
+            try:
+                body = e.read()
+            except Exception:
+                body = b""
+            return Risposta(e.code, dict(e.headers.items()) if e.headers else {}, body)
+
+    def close(self):
+        pass
+
+
+class SessioneCurl:
+    """curl_cffi fallback with browser TLS impersonation (used only after an edge block)."""
+
+    def __init__(self, profilo, headers, proxy=None, timeout=20):
+        from curl_cffi import requests as curl_requests  # imported lazily: optional dependency
+
+        h = dict(headers)
+        if not os.environ.get("FANTA_USER_AGENT"):
+            h.pop("user-agent", None)  # let curl_cffi send the UA that matches the profile
+        kwargs = {"impersonate": profilo, "headers": h, "timeout": timeout}
+        if proxy:
+            kwargs["proxy"] = proxy
+        self.session = curl_requests.Session(**kwargs)
+
+    def get(self, url, headers=None, timeout=None):
+        kwargs = {}
+        if headers:
+            kwargs["headers"] = headers
+        if timeout:
+            kwargs["timeout"] = timeout
+        r = self.session.get(url, **kwargs)
+        return Risposta(r.status_code, dict(r.headers.items()), r.content)
+
+    def close(self):
+        self.session.close()
+
+
+# ----------------------------------------------------------------------------
+# HTTP client with rotation and circuit breaker
 # ----------------------------------------------------------------------------
 class Client:
     def __init__(self):
-        self.combo = list(itertools.product(PROXIES, PROFILES))  # proxy outer: rotate profile first
+        self.combo = list(itertools.product(PROXIES, BACKENDS))  # proxy outer: rotate backend first
         self.idx = 0
         self.session = None
         self.stop_reason = None  # "auth" | "edge" | "rate" -> circuit breaker
@@ -245,19 +322,20 @@ class Client:
     def _apri(self):
         if self.session:
             self.session.close()
-        kwargs = {"impersonate": self.profilo, "headers": BASE_HEADERS, "timeout": 20}
-        if self.proxy:
-            kwargs["proxy"] = self.proxy
+            self.session = None
         try:
-            self.session = requests.Session(**kwargs)
-        except Exception as e:  # unknown profile name on an older curl_cffi
-            print(f"    [warn] profilo {self.profilo} non disponibile ({e}); passo al successivo")
+            if self.profilo == "urllib":
+                self.session = SessioneUrllib(BASE_HEADERS, self.proxy)
+            else:
+                self.session = SessioneCurl(self.profilo, BASE_HEADERS, self.proxy)
+        except Exception as e:  # curl_cffi missing, unknown profile, unsupported proxy scheme
+            print(f"    [warn] {self.profilo} non disponibile ({type(e).__name__}: {_redact(str(e))}); passo al successivo")
             if not self.ruota():
-                raise
+                raise RuntimeError("nessun client HTTP disponibile") from e
             return
-        print(f"    sessione: profilo={self.profilo} via={_proxy_label(self.proxy)}")
-        if WARMUP:
-            try:  # collect __cf_bm & co. like a real browser visiting the site first
+        print(f"    sessione: client={self.profilo} via={_proxy_label(self.proxy)}")
+        if WARMUP and self.profilo != "urllib":
+            try:
                 self.session.get(WARMUP_URL, headers={"accept": "text/html,*/*"}, timeout=15)
             except Exception:
                 pass
@@ -265,7 +343,7 @@ class Client:
             controlla_ip_uscita(self.session)
 
     def ruota(self):
-        """Next profile/proxy with a fresh cookie jar. False when exhausted."""
+        """Next backend/proxy. False when exhausted."""
         if self.idx + 1 >= len(self.combo):
             return False
         self.idx += 1
@@ -293,7 +371,7 @@ class Client:
                 try:
                     r = self.session.get(url)
                 except Exception as e:
-                    ultimo = f"errore di rete ({type(e).__name__})"
+                    ultimo = f"errore di rete ({type(e).__name__}): {_redact(str(e))[:200]}"
                     time.sleep(self._attesa(None, tentativo))
                     continue
 
@@ -314,20 +392,22 @@ class Client:
                     return None
                 if kind == "api_403":
                     self.stop_reason = "auth"
-                    ERRORI.append(f"{desc}: 403 JSON dall'API ({_codice(r)}): token non valido/revocato o permessi lega")
+                    ERRORI.append(f"{desc}: 403 JSON dall'API ({_codice(r)}) con client {self.profilo}")
                     return None
                 if kind in ("rate_limit", "server", "other"):
                     time.sleep(self._attesa(r, tentativo))
                     continue
-                break  # edge_challenge / edge_block / forbidden -> change identity, don't retry same one
+                break  # edge_challenge / edge_block / forbidden -> change client, don't retry same one
 
-            # edge block or retries exhausted for this identity
-            if last_kind in ("edge_challenge", "edge_block", "forbidden"):
-                controlla_ip_uscita(self.session)
+            # edge block, or network errors with no HTTP answer: try the next client
+            if last_kind in ("edge_challenge", "edge_block", "forbidden") or (r is None and last_kind is None):
+                if last_kind:
+                    controlla_ip_uscita(self.session)
                 if self.ruota():
                     time.sleep(random.uniform(1, 3))
                     continue
-                self.stop_reason = "edge"
+                if last_kind:
+                    self.stop_reason = "edge"
             elif last_kind == "rate_limit":
                 self.stop_reason = "rate"
             break
@@ -341,7 +421,7 @@ class Client:
 # Reporting
 # ----------------------------------------------------------------------------
 VERDETTI = {
-    "auth": "Token rifiutato (anche se il JWT non è scaduto può essere stato revocato da un nuovo login): prova lo stesso token in locale; se fallisce anche lì rinnova FANTA_TOKEN dal browser (F12 > Rete > authorization) e aggiorna il secret.",
+    "auth": "Richiesta rifiutata dall'API (401/403 JSON). Non è necessariamente il token: verifica con lo stesso token in locale prima di rinnovare FANTA_TOKEN.",
     "edge": "Blocco WAF/CDN (CloudFront/Cloudflare: IP datacenter o fingerprint): usa il runner self-hosted o un proxy (vedi runbook).",
     "rate": "Rate limit: riduci la frequenza (cron), aumenta le pause, rilancia più tardi.",
 }
@@ -356,7 +436,7 @@ def scrivi_report():
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if not summary or not DIAGNOSI:
         return
-    righe = ["### Diagnostica download", "", "| Voce | Status | Tipo | Profilo | Via | edge id |", "|---|---|---|---|---|---|"]
+    righe = ["### Diagnostica download", "", "| Voce | Status | Tipo | Client | Via | edge id |", "|---|---|---|---|---|---|"]
     for d in DIAGNOSI:
         if "status" in d:
             righe.append(f"| {d['voce']} | {d['status']} | {d['tipo']} | {d['profilo']} | {d['proxy']} | {d['header'].get('cf-ray') or d['header'].get('x-amz-cf-pop', '')} |")
