@@ -1,2 +1,2 @@
-curl_cffi
+curl_cffi>=0.13,<1
 pandas

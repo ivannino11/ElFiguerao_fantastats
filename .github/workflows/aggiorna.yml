@@ -5,6 +5,20 @@ name: Aggiorna dashboard
 
 on:
   workflow_dispatch:
+    inputs:
+      runner:
+        description: "Dove eseguire (self-hosted = PC/Raspberry di casa, IP residenziale)"
+        type: choice
+        options: [ubuntu-latest, self-hosted]
+        default: ubuntu-latest
+      use_proxy:
+        description: "Usa il proxy del secret FANTA_PROXY"
+        type: boolean
+        default: false
+      diagnose:
+        description: "Log diagnostico esteso (IP di uscita, range GitHub)"
+        type: boolean
+        default: true
   # Per l'aggiornamento automatico togli il commento (orari in UTC):
   # schedule:
   #   - cron: "0 7 * * 2"   # ogni martedì alle 9:00 italiane (8:00 con l'ora solare)
@@ -19,7 +33,8 @@ concurrency:
 
 jobs:
   aggiorna:
-    runs-on: ubuntu-latest
+    # Scheduled runs have no inputs: fall back to the repo variable FANTA_RUNNER, then ubuntu-latest
+    runs-on: ${{ inputs.runner || vars.FANTA_RUNNER || 'ubuntu-latest' }}
     timeout-minutes: 15
     steps:
       - name: Checkout
@@ -35,9 +50,34 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Scarica i dati
+        id: scarica
         env:
           FANTA_TOKEN: ${{ secrets.FANTA_TOKEN }}
-        run: python scripts/scarica_dati.py
+          # Proxy only when requested (input) or enabled for scheduled runs (repo variable)
+          FANTA_PROXY: ${{ (inputs.use_proxy || vars.FANTA_USE_PROXY == 'true') && secrets.FANTA_PROXY || '' }}
+          FANTA_DIAGNOSE: ${{ (inputs.diagnose || vars.FANTA_DIAGNOSE == 'true') && '1' || '0' }}
+          FANTA_IMPERSONATE: ${{ vars.FANTA_IMPERSONATE || 'chrome,chrome146,safari184' }}
+        run: |
+          set +e
+          python scripts/scarica_dati.py
+          rc=$?
+          case $rc in
+            0) ;;
+            2) echo "::error::Token rifiutato (exit 2): rinnova il secret FANTA_TOKEN" ;;
+            3) echo "::error::Bloccato dal WAF/CDN (exit 3): rilancia con runner=self-hosted o use_proxy=true" ;;
+            4) echo "::error::Rate limit (exit 4): rilancia più tardi" ;;
+            *) echo "::error::Download non completato (exit $rc)" ;;
+          esac
+          exit $rc
+
+      - name: Allega diagnostica (solo se fallisce)
+        if: failure() && steps.scarica.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagnostica-download
+          path: ${{ runner.temp }}/diagnostica_download.json
+          if-no-files-found: ignore
+          retention-days: 7
 
       - name: Correggi badge giornata nel generatore
         run: |
